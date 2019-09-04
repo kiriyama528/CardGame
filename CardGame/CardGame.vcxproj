@@ -120,12 +120,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="CardList.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
+    <ClInclude Include="CardList.h" />
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Field.h" />
   </ItemGroup>

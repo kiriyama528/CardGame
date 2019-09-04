@@ -18,12 +18,32 @@
 
 
 #include "Card.h"
-#include "Field.h"
+#include "Deck.h"
+#include "CardList.h"
+//#include "Field.h"
 
 using namespace std;
 
 
 int main(void) {
+	CardList card_list("card_list.txt");
+	Deck deck(card_list);
+
+	int num = deck.get_num();
+
+	for (int i = 0; i < num; i++) {
+		deck.draw()->show();
+	}
+	
+	// for debug ˆê’â~
+	printf("I—¹’¼‘O\n");
+	getchar();
+
+	return 0;
+}
+
+
+int main2(void) {
 	
 	string plane_text = "card_name,ability_text,KT82_ume.jpg";
 	
@@ -32,7 +52,7 @@ int main(void) {
 	//Card card();
 	Card card(plane_text);
 	card.show();
-
+	
 	// for debug ˆê’â~
 	getchar();
 

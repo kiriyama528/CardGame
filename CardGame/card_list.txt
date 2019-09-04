@@ -1,2 +1,4 @@
-sample1, ability is No.1
-sample2, ability is No.2
+#class Card
+sample1,ability is No.1,KT1.jpg
+sample2,ability is No.2,KT2.jpg
+sample3,ability is No.3,KT3.jpg
