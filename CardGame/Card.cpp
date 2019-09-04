@@ -110,3 +110,27 @@ bool Card::loadImage(const string filename) {
 	img = cv::imread(filename, 1); // RGBì«Ç›çûÇ›
 	return !img.empty();
 }
+
+bool Card::operator< (const Card obj) const {
+	return strcmp(name.c_str(), obj.name.c_str())<0;
+}
+
+bool Card::operator> (const Card obj) const {
+	return strcmp(name.c_str(), obj.name.c_str()) > 0;
+}
+
+bool Card::operator== (const Card obj) const {
+	return strcmp(name.c_str(), obj.name.c_str()) == 0;
+}
+
+bool Card::operator!= (const Card obj) const {
+	return (*this == obj);
+}
+
+bool Card::operator<= (const Card obj) const {
+	return (*this == obj) || (*this < obj);
+}
+
+bool Card::operator>= (const Card obj) const {
+	return (*this == obj) || (*this > obj);
+}

@@ -61,3 +61,24 @@ int Deck::putBottom(Card *c) {
 
 	return cards_shadow.size();
 }
+
+int Deck::searchIdx(string _name) {
+	for (int i = 0; i < cards_shadow.size(); i++) {
+		if (_name == cards_shadow[i]->get_name()) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+Card* Deck::searchDraw(string _name) {
+	for (int i = 0; i < cards_shadow.size(); i++) {
+		if (_name == cards_shadow[i]->get_name()) {
+			Card *c = cards_shadow[i];
+			cards_shadow.erase(cards_shadow.begin() + i);
+			return c;
+		}
+	}
+	return NULL;
+}
+

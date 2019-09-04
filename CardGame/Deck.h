@@ -49,5 +49,14 @@ public:
 	int putBottom(Card *c);
 
 	int get_num() { return cards_shadow.size(); }
+	
+	/**
+	 * @return 特定の名前のカードの所在(idx)を返す。見つからなければ -1
+	 **/
+	int searchIdx(string _name);
 
+	/**
+	 * @return 探したカード。見つからなければNULL
+	 **/
+	Card* searchDraw(string _name);
 };

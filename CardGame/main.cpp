@@ -14,11 +14,12 @@
 #endif
 #pragma comment(lib, "opencv_world411" CV_EXT) // OpenCV4.1.1‚È‚Ì‚Å
 
-#include <string>
 
+#include <string>
 
 #include "Card.h"
 #include "Deck.h"
+#include "Hands.h"
 #include "CardList.h"
 //#include "Field.h"
 
@@ -28,13 +29,22 @@ using namespace std;
 int main(void) {
 	CardList card_list("card_list.txt");
 	Deck deck(card_list);
-
-	int num = deck.get_num();
+	Hands hands;
+	
+	int num = deck.shuffle();
+	deck.shuffle();
 
 	for (int i = 0; i < num; i++) {
-		deck.draw()->show();
+		Card *tmp = deck.draw();
+		hands.in(tmp);
 	}
 	
+	printf("--- before ---\n");
+	hands.show(Card::SHOW_TEXT);
+	hands.sort();
+	printf("--- after  ---\n");
+	hands.show(Card::SHOW_TEXT);
+
 	// for debug ˆê’â~
 	printf("I—¹’¼‘O\n");
 	getchar();

@@ -11,11 +11,6 @@ private:
 	int n_elems = 3; // 読み込みリストから読み込む予定の要素数
 
 protected:
-	typedef enum {
-		SHOW_TEXT,
-		SHOW_IMG_TEXT
-	} SHOW_TYPE;
-
 	string name;         // カードの名前
 	string ability_text; // カード効果のテキスト文
 	cv::Mat img;         // カードの画像
@@ -24,6 +19,11 @@ protected:
 	bool loadImage(const string filename);
 
 public:
+	typedef enum {
+		SHOW_TEXT,
+		SHOW_IMG_TEXT
+	} SHOW_TYPE;
+
 	Card();
 	// カードの読み込みつき
 	Card(string plane_text);
@@ -34,6 +34,15 @@ public:
 
 	// カードを表示する
 	virtual void show(SHOW_TYPE type=SHOW_IMG_TEXT);
+
+	virtual bool operator < (const Card obj) const;
+	virtual bool operator > (const Card obj) const;
+	virtual bool operator == (const Card obj) const;
+	virtual bool operator != (const Card obj) const;
+	virtual bool operator <= (const Card obj) const;
+	virtual bool operator >= (const Card obj) const;
+
+	const string get_name() { return name; }
 
 };
 

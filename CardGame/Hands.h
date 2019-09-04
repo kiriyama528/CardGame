@@ -23,13 +23,13 @@ public:
 	/**
 	 * @brief ŽèŽD‚ð‘S•”Œ©‚é
 	 **/
-	void show();
+	void show(Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
 
 	/**
 	 * @brief “Á’è‚ÌŽèŽD‚ðŒ©‚é
 	 *        ( 0 <= idx < cards_shadow.size() )
 	 **/
-	void show(int idx);
+	void show(int idx, Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
 	
 	/**
 	 * @return ŽèŽD‚Ì–‡”
@@ -41,4 +41,5 @@ public:
 	 **/
 	Card* out(int idx);
 
+	void sort();
 };

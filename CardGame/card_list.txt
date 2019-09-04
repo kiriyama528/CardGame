@@ -2,3 +2,6 @@
 sample1,ability is No.1,KT1.jpg
 sample2,ability is No.2,KT2.jpg
 sample3,ability is No.3,KT3.jpg
+sample4,ability is No.4,KT5.jpg
+sample5,ability is No.5,KT10.jpg
+sample6,ability is No.6,KT20.jpg
