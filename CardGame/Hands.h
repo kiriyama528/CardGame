@@ -1,0 +1,44 @@
+#pragma once
+
+#include <vector>
+
+#include "Card.h"
+
+using namespace std;
+
+class Hands {
+protected:
+	vector<Card*> cards_shadow;
+
+public:
+	Hands();
+	Hands(const vector<Card*> _shadow);
+	~Hands();
+
+	/**
+	 * @return èD‚Ì–‡”
+	 **/
+	int load(const vector<Card*> _shadow);
+
+	/**
+	 * @brief èD‚ğ‘S•”Œ©‚é
+	 **/
+	void show();
+
+	/**
+	 * @brief “Á’è‚ÌèD‚ğŒ©‚é
+	 *        ( 0 <= idx < cards_shadow.size() )
+	 **/
+	void show(int idx);
+	
+	/**
+	 * @return èD‚Ì–‡”
+	 **/
+	int in(Card* cs);
+
+	/**
+	 * @return æ‚èœ‚¢‚½èD
+	 **/
+	Card* out(int idx);
+
+};
