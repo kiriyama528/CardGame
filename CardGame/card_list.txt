@@ -1,0 +1,2 @@
+sample1, ability is No.1
+sample2, ability is No.2
