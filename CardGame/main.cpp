@@ -21,7 +21,6 @@
 #include "Deck.h"
 #include "Hands.h"
 #include "CardList.h"
-//#include "Field.h"
 
 using namespace std;
 
@@ -52,19 +51,3 @@ int main(void) {
 	return 0;
 }
 
-
-int main2(void) {
-	
-	string plane_text = "card_name,ability_text,KT82_ume.jpg";
-	
-	// 外部ファイルからの読み込みを行いたい
-
-	//Card card();
-	Card card(plane_text);
-	card.show();
-	
-	// for debug 一時停止
-	getchar();
-
-	return 0;
-}

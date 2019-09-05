@@ -18,10 +18,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FieldRivals.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FieldRivals.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{9F636A4A-13DD-4E36-A6AB-492D4040C9A0}</ProjectGuid>
-    <RootNamespace>CardGame</RootNamespace>
+    <ProjectGuid>{CCB0B6DF-75D9-4034-9D67-438219C6DAED}</ProjectGuid>
+    <RootNamespace>Rivals</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,11 +82,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\opencv\build\install\include;C:\opencv\opencv_contrib-4.1.1\modules\aruco\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>C:\opencv\build\install\x86\vc15\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -118,19 +120,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Card.cpp" />
-    <ClCompile Include="CardList.cpp" />
-    <ClCompile Include="Deck.cpp" />
-    <ClCompile Include="Hands.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Card.h" />
-    <ClInclude Include="CardList.h" />
-    <ClInclude Include="Deck.h" />
-    <ClInclude Include="Hands.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
