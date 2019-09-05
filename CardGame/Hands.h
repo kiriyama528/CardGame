@@ -37,7 +37,8 @@ public:
 	int in(Card* cs);
 
 	/**
-	 * @return æ‚èœ‚¢‚½èD
+	 * @return æ‚èœ‚¢‚½èDBidx‚ª•s“KØ‚È‚çNULL
+
 	 **/
 	Card* out(int idx);
 

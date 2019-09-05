@@ -3,15 +3,9 @@
 
 #include "Card.h"
 
-#define MAX_COLS 15
-
 using namespace std;
 
-int split_plane(char *plane_text, char **cols);
-
-
-
-bool endStr(char target) {
+bool Card::endStr(char target) {
 	const int n_end_chars = 3;
 	char end_chars[n_end_chars] = { '\n', '\0', '\r'};
 	for (int i = 0; i < n_end_chars; i++) {
@@ -37,12 +31,16 @@ Card::~Card() {
 	// do nothing
 }
 
-bool Card::load(string plane_text){
+bool Card::load(const string plane_text){
 	// plane_textの形式: card_name,ability_text,img_name
 	char *cols[MAX_COLS];
-	char *str_p = new char[plane_text.size() + 1];
+	char *str_p = new char[plane_text.size() + 1];  // 作業用文字列
 	strcpy_s(str_p, plane_text.size() + 1, plane_text.c_str());
+
+	// plane_text の要素分割
 	int n_cols = split_plane(str_p, cols);
+
+	// エラーチェック
 	if (n_cols != n_elems) {
 		fprintf(stderr, " ERROR > カード生成時の要素が不適切です。\n"
 			            "         %d要素読み込みの予定が%d要素あります。\n"
@@ -81,7 +79,7 @@ void Card::show(SHOW_TYPE type) {
 /**
  * @brief 文字を分割しcolsで指す。今のところ区切り文字は ','に固定
  **/
-int split_plane(char *plane_text, char **cols) {
+int Card::split_plane(char *plane_text, char **cols) {
 	int cnt = 0;
 	cols[0] = plane_text;
 	cnt++;
@@ -91,6 +89,7 @@ int split_plane(char *plane_text, char **cols) {
 			*plane_text = '\0';
 			// 最後に ',' が入っているような特殊な状況であれば
 			if (endStr(*(plane_text+1))){
+				*(plane_text + 1) = '\0';
 				break;
 			}
 			else {
@@ -98,6 +97,10 @@ int split_plane(char *plane_text, char **cols) {
 				cols[cnt] = plane_text;
 				cnt++;
 			}
+		}
+		else if (endStr(*plane_text)) {
+			*plane_text = '\0';
+			break;
 		}
 
 		plane_text++;
