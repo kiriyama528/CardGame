@@ -124,13 +124,13 @@ bool Card::operator== (const Card obj) const {
 }
 
 bool Card::operator!= (const Card obj) const {
-	return (*this == obj);
+	return !(*this == obj);
 }
 
 bool Card::operator<= (const Card obj) const {
-	return (*this == obj) || (*this < obj);
+	return !(*this > obj);
 }
 
 bool Card::operator>= (const Card obj) const {
-	return (*this == obj) || (*this > obj);
+	return !(*this < obj);
 }
