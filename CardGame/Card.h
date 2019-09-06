@@ -46,6 +46,8 @@ public:
 
 	const string get_name() { return name; }
 
+	const string get_ability() { return ability_text; }
+
 	// I’[•¶š‚É—Ş‚·‚é•¶š‚©‚Ç‚¤‚© true / false
 	static bool endStr(char target);
 

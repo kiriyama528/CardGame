@@ -11,10 +11,12 @@ private:
 protected:
 	unsigned int power;
 
+public:
 	CardRivals();
 	CardRivals(const string plane_text);
 	~CardRivals();
 
 	virtual bool load(string plane_text);
+	unsigned int get_power() const { return power; }
 
 };

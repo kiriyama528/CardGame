@@ -39,7 +39,6 @@ Card *selectCard(Hands &hand) {
 
 
 int main(void) {
-#if 0
 	CardList card_list("card_rival_list.txt");
 	Hands hands_p1(card_list.shadow()), hands_p2(card_list.shadow());
 	FieldRivals field;
@@ -50,11 +49,13 @@ int main(void) {
 		// èD‘I‘ğ making
 		Card *card_p1 = selectCard(hands_p1);
 		Card *card_p2 = selectCard(hands_p2);
-		/*
+		
+		
 		// èD‚ÌƒvƒŒƒC winner= 0 or 1
-		int winner = field.playCards(card_p1, card_p2); 
-		wins[winner]++;
-		*/
+		unsigned int p1_wins, p2_wins;
+		field.playCards(card_p1, card_p2, p1_wins, p2_wins); 
+		wins[0] += p1_wins;
+		wins[1] += p2_wins;
 	}
 
 	printf("Game set!\n Score : %d - %d\n", wins[0], wins[1]);
@@ -62,6 +63,5 @@ int main(void) {
 	// ˆê’â~
 	getchar();
 
-#endif
 	return 0;
 }
