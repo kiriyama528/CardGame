@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CardGame", "CardGame\CardGame.vcxproj", "{9F636A4A-13DD-4E36-A6AB-492D4040C9A0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Rivals", "Rivals\Rivals.vcxproj", "{CCB0B6DF-75D9-4034-9D67-438219C6DAED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F636A4A-13DD-4E36-A6AB-492D4040C9A0} = {9F636A4A-13DD-4E36-A6AB-492D4040C9A0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
