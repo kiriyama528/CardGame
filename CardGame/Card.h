@@ -35,7 +35,7 @@ public:
 	virtual bool load(const string plane_text);
 
 	// カードを表示する
-	virtual void show(SHOW_TYPE type=SHOW_IMG_TEXT);
+	virtual void show(string img_head="", SHOW_TYPE type=SHOW_IMG_TEXT);
 
 	virtual bool operator < (const Card obj) const;
 	virtual bool operator > (const Card obj) const;
@@ -44,9 +44,9 @@ public:
 	virtual bool operator <= (const Card obj) const;
 	virtual bool operator >= (const Card obj) const;
 
-	const string get_name() { return name; }
+	const string get_name() const { return name; }
 
-	const string get_ability() { return ability_text; }
+	const string get_ability() const { return ability_text; }
 
 	// 終端文字に類する文字かどうか true / false
 	static bool endStr(char target);

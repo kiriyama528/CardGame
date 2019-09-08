@@ -127,6 +127,14 @@ bool FieldRivals::abilityPrincess(PLAYER_NUMBER p, ABILITY_TAG you_tag) {
 
 
 bool FieldRivals::abilitySpy(PLAYER_NUMBER p) {
+	
+	// 自分も公開しないといけない状態ならば
+	if (reveal[p]) {
+		// お互い公開しない
+		reveal[P1] = reveal[P2] = false;
+		return true;
+	}
+
 	reveal[N_PLAYERS-1 - p] = true;
 	return true;
 }
@@ -228,36 +236,13 @@ bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 	return true;
 }
 
-/*
-switch(){
-case DRAW:
-	;
-	break;
-case PRINCESS:
 
-	break;
-case SPY:
+bool FieldRivals::isReveal(bool *reveal_flag) {
+	bool tmp = false;
+	for (int i = 0; i < N_PLAYERS; i++) {
+		reveal_flag[i] = reveal[i];
+		tmp = tmp || reveal_flag[i];
+	}
 
-	break;
-case REVERSE:
-
-	break;
-case DOUBLE:
-
-	break;
-case INVALID:
-	// 能力はお互い実行せずに終了
-	return true;
-	break;
-case POWER_2:
-
-	break;
-case WIN:
-
-	break;
-case UNKNOWN:
-default:
-	return false;
-	break;
+	return tmp;
 }
-*/

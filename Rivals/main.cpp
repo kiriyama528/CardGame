@@ -46,10 +46,40 @@ int main(void) {
 	int wins[2] = { 0, 0 }; // 勝利数
 
 	while (wins[0] < 4 || wins[1] < 4) {
+		CardRivals *card_p1 = NULL;  // 今勝負で使用するカード
+		CardRivals *card_p2 = NULL;  // 今勝負で使用するカード
+
+		// 密偵の効果で公開が必要な場合
+		bool is_rev[2] = { false, false };
+		if (field.isReveal(is_rev)) {
+			// どちらかで密偵の効果が発動している
+			if (is_rev[0]) {
+				card_p1 = dynamic_cast<CardRivals*>(selectCard(hands_p1));
+				card_p1->show();
+			}
+			else {
+				card_p2 = dynamic_cast<CardRivals*>(selectCard(hands_p2));
+				card_p2->show();
+			}
+		}
+
+
 		// 手札選択 making
-		Card *card_p1 = selectCard(hands_p1);
-		Card *card_p2 = selectCard(hands_p2);
-		
+		if (!card_p1) {
+			card_p1 = dynamic_cast<CardRivals*>(selectCard(hands_p1));
+		}
+		if (!card_p2) {
+			card_p2 = dynamic_cast<CardRivals*>(selectCard(hands_p2));
+		}
+		if (card_p1 == NULL || card_p2 == NULL) {
+			// Error
+			fprintf(stderr, " ERROR: 手札選択時に想定外の型が返されました.\n");
+			exit(1);
+		}
+
+		// 選択した手札の公開
+		card_p1->show();
+		card_p2->show();
 		
 		// 手札のプレイ winner= 0 or 1
 		unsigned int p1_wins, p2_wins;

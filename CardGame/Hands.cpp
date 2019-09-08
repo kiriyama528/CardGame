@@ -33,7 +33,7 @@ void Hands::show(Card::SHOW_TYPE show_type) {
 }
 
 void Hands::show(int idx, Card::SHOW_TYPE show_type) {
-	cards_shadow[idx]->show(show_type);
+	cards_shadow[idx]->show("", show_type);
 }
 
 int Hands::in(Card* cs) {

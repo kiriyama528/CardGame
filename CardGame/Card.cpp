@@ -63,7 +63,7 @@ bool Card::load(const string plane_text){
 	return true;
 }
 
-void Card::show(SHOW_TYPE type) {
+void Card::show(string img_head, SHOW_TYPE type) {
 	cout << "name : " << name << endl;
 	cout << "ability : " << ability_text << endl;
 	

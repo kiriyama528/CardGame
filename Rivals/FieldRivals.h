@@ -81,4 +81,8 @@ public:
 			unsigned int &p1_wins,
 			unsigned int &p2_wins);
 
+	// @return ‚Ğ‚Æ‚Â‚Å‚àŒ©‚Â‚©‚ê‚Î true. Ú×‚Íˆø”‚Ö
+	bool isReveal(bool * reveal_flag);
+
+
 };
