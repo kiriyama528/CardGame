@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CardListRivals.h" />
     <ClInclude Include="CardRivals.h" />
     <ClInclude Include="FieldRivals.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CardListRivals.cpp" />
     <ClCompile Include="CardRivals.cpp" />
     <ClCompile Include="FieldRivals.cpp" />
     <ClCompile Include="main.cpp" />

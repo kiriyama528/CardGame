@@ -68,7 +68,7 @@ void Card::show(string img_head, SHOW_TYPE type) {
 	cout << "ability : " << ability_text << endl;
 	
 	// ‰æ‘œ‚à•\Ž¦‚·‚é‚©
-	if (type == SHOW_IMG_TEXT) {
+	if (type == SHOW_IMG_TEXT && !img.empty()) {
 		cv::imshow(name, img);
 		cv::waitKey(0);
 		cv::destroyWindow(name); // fix me ‚¢‚Á‚½‚ñ•\Ž¦‚·‚é‚Á‚ÄŠ´‚¶‚Å

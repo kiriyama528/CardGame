@@ -9,18 +9,18 @@
  * @date 2019/09/04
  **/
 class CardList {
+private:
 	typedef enum {
 		CARD,
-		RIVALS,
 		UNKNOWN  // 未知のclass もしくは未指定
 	} CARD_CLASS;
+	CARD_CLASS cardClassBranch(const char* str);
+
 protected:
 	// *card[N] それぞれのカードを指すポインタの配列。
 	// 実態管理用。増減しないし、操作しない。
 	vector<Card*> cards;
 	
-	CARD_CLASS cardClassBranch(const char* str);
-
 public:
 	CardList();
 	//デッキ読み込み付き

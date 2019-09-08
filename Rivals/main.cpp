@@ -13,7 +13,7 @@
 
 #include <iostream>
 
-#include "CardList.h"
+#include "CardListRivals.h"
 #include "Deck.h"
 #include "Hands.h"
 #include "Card.h"
@@ -32,20 +32,26 @@ Card *selectCard(Hands &hand) {
 		int idx;
 		cin >> idx;
 		card = hand.out(idx);
-	} while (card != NULL);
+	} while (card == NULL);
 
 	return card;
 }
 
 
 int main(void) {
-	CardList card_list("card_rival_list.txt");
+	CardListRivals card_list("card_rival_list.txt");
 	Hands hands_p1(card_list.shadow()), hands_p2(card_list.shadow());
 	FieldRivals field;
 
 	int wins[2] = { 0, 0 }; // 勝利数
 
 	while (wins[0] < 4 || wins[1] < 4) {
+		// 手札の表示
+		printf(" -- Player 1 hands -- \n");
+		hands_p1.show();
+		printf(" -- Player 2 hands -- \n");
+		hands_p2.show();
+		
 		CardRivals *card_p1 = NULL;  // 今勝負で使用するカード
 		CardRivals *card_p2 = NULL;  // 今勝負で使用するカード
 
@@ -63,7 +69,6 @@ int main(void) {
 			}
 		}
 
-
 		// 手札選択 making
 		if (!card_p1) {
 			card_p1 = dynamic_cast<CardRivals*>(selectCard(hands_p1));
@@ -80,12 +85,15 @@ int main(void) {
 		// 選択した手札の公開
 		card_p1->show();
 		card_p2->show();
-		
+
 		// 手札のプレイ winner= 0 or 1
 		unsigned int p1_wins, p2_wins;
 		field.playCards(card_p1, card_p2, p1_wins, p2_wins); 
 		wins[0] += p1_wins;
 		wins[1] += p2_wins;
+
+		// 現在の勝敗
+		printf("(P1) %d - %d (P2)\n", wins[0], wins[1]);
 	}
 
 	printf("Game set!\n Score : %d - %d\n", wins[0], wins[1]);

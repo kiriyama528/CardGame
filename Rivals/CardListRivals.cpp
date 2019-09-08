@@ -1,47 +1,38 @@
+#include "CardListRivals.h"
+#include "CardRivals.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
+CardListRivals::CardListRivals() : CardList()
+{
 
-#include "Card.h"
-#include "CardList.h"
+}
+
+CardListRivals::CardListRivals(string filename)
+{
+	load(filename);
+}
+
+CardListRivals::~CardListRivals()
+{
+	// 親クラスのデストラクタを呼び出さないといけないのだが
+	// making
+}
 
 
-
-
-CardList::CARD_CLASS CardList::cardClassBranch(const char* str) {
+CardListRivals::CARD_CLASS CardListRivals::cardClassBranch(const char* str) {
 	if (strcmp(str, "Card") == 0) {
 		return CARD;
+	}
+	else if (strcmp(str, "CardRivals") == 0) {
+		return RIVALS;
 	}
 	else {
 		return UNKNOWN;
 	}
 }
 
-CardList::CardList() {
-	// do nothing
-}
 
-
-CardList::CardList(string filename) {
-	load(filename);
-}
-
-CardList::~CardList() {
-	// メモ：vector<Card> cards
-	for (unsigned int i = 0; i < cards.size(); i++) {
-		delete cards[i]; // 実態の削除
-	}
-	cards.clear(); // ポインタvectorの初期化
-}
-
-
-// #class Card    <- 読み込む class。ヘッダーは先頭に#
-// card_name1,ability1,img_name1
-// card_name2,ability2,img_name2
-// card_name3,ability3,img_name3
-
-bool CardList::load(string filename) {
+// fix me 親クラスを利用してtemplateクラス作れば、差分だけで表現できそう
+bool CardListRivals::load(string filename) {
 #define BUFFER_SIZE 2048
 	ifstream ifs(filename);
 
@@ -65,8 +56,8 @@ bool CardList::load(string filename) {
 
 		// カード読み込み処理
 		switch (card_class) {
-		case CARD:
-			cards.emplace_back(new Card(buffer));
+		case RIVALS:
+			cards.emplace_back(new CardRivals(buffer));
 			break;
 		default:
 			fprintf(stderr, " ERROR : カードリストファイルで読み込みカードクラスが指定されていません\n");
@@ -77,9 +68,4 @@ bool CardList::load(string filename) {
 	ifs.close(); // fix me ? もしかしたらいらないかも
 
 	return true;
-}
-
-
-const vector<Card*> CardList::shadow() {
-	return cards;
 }
