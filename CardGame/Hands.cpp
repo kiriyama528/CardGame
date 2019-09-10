@@ -33,7 +33,9 @@ void Hands::show(Card::SHOW_TYPE show_type) {
 }
 
 void Hands::show(int idx, Card::SHOW_TYPE show_type) {
+	printf("  < %dth of hands >\n", idx);
 	cards_shadow[idx]->show("", show_type);
+	printf("\n");
 }
 
 int Hands::in(Card* cs) {

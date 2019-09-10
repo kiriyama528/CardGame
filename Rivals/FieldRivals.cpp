@@ -60,11 +60,13 @@ FieldRivals::~FieldRivals() {
 		}
 		else if (powers[P1] > powers[P2]) {
 			wins[P1] = 1 + draw_storage[P1];
+			draw_storage[P1] =
 			draw_storage[P2] = 0;
 		}
 		else {
-			draw_storage[P1] = 0;
 			wins[P2] = 1 + draw_storage[P2];
+			draw_storage[P1] =
+			draw_storage[P2] = 0;
 		}
 
 		p1_wins = wins[P1];
@@ -120,9 +122,10 @@ bool FieldRivals::abilityDraw() {
 bool FieldRivals::abilityPrincess(PLAYER_NUMBER p, ABILITY_TAG you_tag) {
 	if (you_tag == WIN) {
 		wins[p] += 4;
+		return true;
 	}
 
-	return true;
+	return false;
 }
 
 
@@ -162,9 +165,6 @@ bool FieldRivals::abilityWin(PLAYER_NUMBER p) {
 
 
 bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
-	branchAbility(c1);
-	branchAbility(c2);
-
 	const CardRivals *cc[N_PLAYERS] = { c1, c2 };
 	//	void (*fpfunc[N_PLAYERS])(CardRivals*); // égÇ¶Ç»Ç©Ç¡ÇΩ
 	ABILITY_TAG abi_tag[N_PLAYERS];
@@ -198,7 +198,6 @@ bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 			abilityPowerUp((PLAYER_NUMBER)i, 2);
 			break;
 		default:
-			return false;
 			break;
 		}
 	}
@@ -219,16 +218,16 @@ bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 		}
 	}
 
-	/// èüóò
+	/// èüóò 7
 	for (int i = 0; i < N_PLAYERS; i++) {
-		if (abi_tag[i] == REVERSE) {
+		if (abi_tag[i] == WIN) {
 			abilityWin((PLAYER_NUMBER)i);
 		}
 	}
 
 	/// ç≈å„Ç…î≠ìÆ: 0
 	for (int i = 0; i < N_PLAYERS; i++) {
-		if (abi_tag[i] == REVERSE) {
+		if (abi_tag[i] == DRAW) {
 			abilityDraw();
 		}
 	}
