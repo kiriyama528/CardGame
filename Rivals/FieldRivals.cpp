@@ -48,7 +48,7 @@ FieldRivals::~FieldRivals() {
 
 	// fix me スマートになるように書き直し
 	// 能力解決により勝利数が変化していたら
-	if (wins[P1] != 0 || wins[P1] != 0) {
+	if (wins[P1] != 0 || wins[P2] != 0) {
 		p1_wins = wins[P1];
 		p2_wins = wins[P2];
 		return true;

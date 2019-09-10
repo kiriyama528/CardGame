@@ -50,15 +50,33 @@ int main(void) {
 	FieldRivals field;
 
 #if 0
+	// 前半
 	const vector<int> p1_idx   = { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
 	const vector<int> p2_idx   = { 0, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7};
 	const unsigned int ans_p1[] ={ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 2, 0, 1, 0};
 	const unsigned int ans_p2[] ={ 0, 0, 0, 0, 0, 7, 0, 0, 0, 4, 0, 2, 1, 1, 0, 0, 0, 2, 1, 1, 1, 0, 0, 1, 0, 1};
-#else
-	const vector<int> p1_idx = {};
-	const vector<int> p2_idx = {};
-	const unsigned int ans_p1[] = {};
-	const unsigned int ans_p2[] = {};
+#elif 0
+	// 後半
+	const vector<int> p1_idx    = { 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7};
+	const vector<int> p2_idx    = { 4, 5, 6, 7, 5, 6, 7, 6, 7, 7, 1};
+	const unsigned int ans_p1[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0};
+	const unsigned int ans_p2[] = { 0, 3, 1, 1, 0, 2, 1, 0, 2, 0, 4};
+	
+#elif 0
+	// 要注意確認
+	const vector<int> p1_idx    = { 5, 5, 5, 5, 5, 5, 5, 5, 6, 5, 4};
+	const vector<int> p2_idx    = { 0, 1, 2, 3, 4, 5, 6, 4, 7, 7, 2};
+	const unsigned int ans_p1[] = { 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 3};
+	const unsigned int ans_p2[] = { 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0};
+
+	// 5はすべての効果を無効化した
+
+#elif 1
+	// 要注意確認
+	const vector<int> p1_idx    = { 6, 1, 6, 1, 6, 2, 6, 3, 6, 4};
+	const vector<int> p2_idx    = { 7, 2, 7, 3, 7, 3, 7, 3, 7, 5};
+	const unsigned int ans_p1[] = { 0, 1, 0, 0, 0, 0, 0, 1, 0, 1};
+	const unsigned int ans_p2[] = { 1, 0, 1, 0, 2, 1, 1, 0, 1, 0};
 
 #endif
 
