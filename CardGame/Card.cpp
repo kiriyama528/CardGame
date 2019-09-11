@@ -75,6 +75,24 @@ void Card::show(string img_head, SHOW_TYPE type) {
 	}
 }
 
+string Card::show(const string title, float scale, unsigned int upper, unsigned int left, bool is_wait) {
+	if (!img.empty()) {
+		cv::namedWindow(title, cv::WINDOW_AUTOSIZE | cv::WINDOW_KEEPRATIO);
+		cv::Mat img_res;
+		cv::resize(img, img_res, cv::Size(), scale, scale);
+		cv::imshow(title, img_res);
+		cv::moveWindow(title, left, upper);
+		if (is_wait) {
+			cv::waitKey();
+		}
+		return title;
+	}
+	else {
+		fprintf(stderr, " Warning : %s カードで表示する画像がありませんでした\n", name.c_str());
+		return 0;  // fix me より適切なエラーをreturnしろ
+	}
+}
+
 
 /**
  * @brief 文字を分割しcolsで指す。今のところ区切り文字は ','に固定

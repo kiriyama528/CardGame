@@ -22,7 +22,8 @@
 
 using namespace std;
 
-#define DEBUG  // for debug
+//#define DEBUG  // for debug
+#define IMG_SCALE 0.5
 
 
 /**
@@ -31,7 +32,7 @@ using namespace std;
 Card *selectCard(Hands &hand) {
 	Card *card;
 	do {
-		printf("Select card idx.\n");
+		printf("Select card idx.\n > ");
 		int idx;
 		cin >> idx;  // fix me 文字などの予定外が来るとバグる
 		
@@ -42,7 +43,7 @@ Card *selectCard(Hands &hand) {
 }
 
 
-int main(void) {
+int main_test(void) {
 	// テストコード
 
 	CardListRivals card_list("card_rival_list.txt");
@@ -121,7 +122,7 @@ int main(void) {
 
 
 
-int main_src(void) {
+int main(void) {
 	CardListRivals card_list("card_rival_list.txt");
 	Hands hands_p1(card_list.shadow()), hands_p2(card_list.shadow());
 	FieldRivals field;
@@ -130,17 +131,10 @@ int main_src(void) {
 
 	while (wins[0] < 4 && wins[1] < 4) {
 		// 手札の表示
-#ifdef DEBUG
 		printf(" -- Player 1 hands -- \n");
-		hands_p1.show(Card::SHOW_TEXT);
+		hands_p1.showLineUp(0, 0, IMG_SCALE);
 		printf(" -- Player 2 hands -- \n");
-		hands_p2.show(Card::SHOW_TEXT);
-#else
-		printf(" -- Player 1 hands -- \n");
-		hands_p1.show();
-		printf(" -- Player 2 hands -- \n");
-		hands_p2.show();
-#endif
+		hands_p2.showLineUp(500, 0, IMG_SCALE);
 		
 		CardRivals *card_p1 = NULL;  // 今勝負で使用するカード
 		CardRivals *card_p2 = NULL;  // 今勝負で使用するカード
@@ -150,20 +144,24 @@ int main_src(void) {
 		if (field.isReveal(is_rev)) {
 			// どちらかで密偵の効果が発動している
 			if (is_rev[0]) {
+				printf(" 隠者の効果により、 PLAYER 1 はカードを公開してプレイしてください\n");
 				card_p1 = dynamic_cast<CardRivals*>(selectCard(hands_p1));
 				card_p1->show();
 			}
 			else {
+				printf(" 隠者の効果により、 PLAYER 2 はカードを公開してプレイしてください\n");
 				card_p2 = dynamic_cast<CardRivals*>(selectCard(hands_p2));
 				card_p2->show();
 			}
 		}
 
-		// 手札選択 making
+		// 手札選択
 		if (!card_p1) {
+			printf(" 手札の選択：PLAYER 1\n");
 			card_p1 = dynamic_cast<CardRivals*>(selectCard(hands_p1));
 		}
 		if (!card_p2) {
+			printf(" 手札の選択：PLAYER 2\n");
 			card_p2 = dynamic_cast<CardRivals*>(selectCard(hands_p2));
 		}
 		if (card_p1 == NULL || card_p2 == NULL) {
@@ -192,6 +190,7 @@ int main_src(void) {
 		// 現在の勝敗
 		printf("(P1) %d - %d (P2)\n", wins[0], wins[1]);
 
+		printf(" 結果を確認した？ Enterキー\n");
 		getchar();
 		getchar();
 	}

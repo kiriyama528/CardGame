@@ -37,6 +37,10 @@ public:
 	// カードを表示する
 	virtual void show(string img_head="", SHOW_TYPE type=SHOW_IMG_TEXT);
 
+	// カードを指定のscaleと場所に表示する
+	// @return windowの名前を返す。削除するときに利用する。
+	string show(const string title, float scale, unsigned int upper, unsigned int left, bool is_wait);
+
 	virtual bool operator < (const Card obj) const;
 	virtual bool operator > (const Card obj) const;
 	virtual bool operator == (const Card obj) const;
@@ -53,6 +57,11 @@ public:
 
 	// ,(コンマ) で要素を分類する。plane_textの分解用
 	static int split_plane(char *plane_text, char **cols);
-
+	
+	bool getImgSize(unsigned int *rows, unsigned int *cols) const {
+		*rows = img.rows;
+		*cols = img.cols;
+		return !img.empty(); 
+	}
 };
 

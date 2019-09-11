@@ -82,7 +82,7 @@ bool FieldRivals::enchantment(const CardRivals *c1, const CardRivals *c2) {
 	powers[P2] = c2->get_power() + power_up[P2];
 
 	power_up[P1] = power_up[P2] = 0;
-	reveal[P1] = reveal[P2] = 0; // フラグリセットのタイミング的にはここだけど、効果発動が難しい
+	reveal[P1] = reveal[P2] = false; // フラグリセットのタイミング的にはここだけど、効果発動が難しい
 
 	return true;
 }

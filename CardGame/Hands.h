@@ -30,7 +30,10 @@ public:
 	 *        ( 0 <= idx < cards_shadow.size() )
 	 **/
 	void show(int idx, Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
-	
+
+	// èD‚ğ•À‚×‚Ä‚·‚×‚Ä•\¦‚·‚é
+	void showLineUp(unsigned int upper, unsigned int left, float scale);
+
 	/**
 	 * @return èD‚Ì–‡”
 	 **/

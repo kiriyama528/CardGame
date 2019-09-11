@@ -38,6 +38,25 @@ void Hands::show(int idx, Card::SHOW_TYPE show_type) {
 	printf("\n");
 }
 
+void Hands::showLineUp(unsigned int upper, unsigned int left, float scale) {
+	unsigned int x = left, y = upper;
+	unsigned int rows = 0, cols = 0;
+	for (unsigned int i = 0; i < cards_shadow.size(); i++) {
+		// ウィンドウの表示
+		char title[256];
+		sprintf_s(title, "hands[%d]", i);
+		cards_shadow[i]->show(title, scale, y, x, false);
+		
+		// 次に表示するウィンドウの位置決め
+		cards_shadow[i]->getImgSize(&rows, &cols);
+		x += (unsigned int)(cols * scale);
+	}
+
+	cv::waitKey();
+	cv::destroyAllWindows();
+
+}
+
 int Hands::in(Card* cs) {
 	cards_shadow.push_back(cs);
 	return cards_shadow.size();
