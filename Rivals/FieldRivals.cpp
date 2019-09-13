@@ -1,5 +1,7 @@
 /**
- * @brie
+ * @brief カードゲーム「R-Rivals」のカード効果を処理する場
+ * @date 2019/09/13
+ * @author kiriyama tomoya
  **/
 
 #include "Card.h"

@@ -1,5 +1,7 @@
 /**
  * @brief カードゲーム R-Rivals 
+ * @date 2019/09/13
+ * @author kiriyama tomoya
  **/
 
 #ifdef _DEBUG
@@ -28,6 +30,8 @@ using namespace std;
 
 /**
  * @brief カード選択をプレイヤーに促し、選択させる
+ * @param 選択対象の手札
+ * @return 選ばれた手札
  **/
 Card *selectCard(Hands &hand) {
 	Card *card = NULL;
@@ -46,7 +50,7 @@ Card *selectCard(Hands &hand) {
 
 
 int main_test(void) {
-	// テストコード
+	// テストコード。main()と差し替えて使用する
 
 	CardListRivals card_list("card_rival_list.txt");
 	const vector<Card *> cards = card_list.shadow(); // 消費しない手札

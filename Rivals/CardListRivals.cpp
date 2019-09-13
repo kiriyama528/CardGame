@@ -1,3 +1,9 @@
+/**
+* @brief カードゲーム「R-Rivals」のカードリストを読み込むクラス
+* @date 2019/09/13
+* @author kiriyama tomoya
+**/
+
 #include "CardListRivals.h"
 #include "CardRivals.h"
 
@@ -6,10 +12,12 @@ CardListRivals::CardListRivals() : CardList()
 
 }
 
+
 CardListRivals::CardListRivals(string filename)
 {
 	load(filename);
 }
+
 
 CardListRivals::~CardListRivals()
 {
@@ -33,7 +41,6 @@ CardListRivals::CARD_CLASS CardListRivals::cardClassBranch(const char* str) {
 
 // fix me 親クラスを利用してtemplateクラス作れば、差分だけで表現できそう
 bool CardListRivals::load(string filename) {
-#define BUFFER_SIZE 2048
 	ifstream ifs(filename);
 
 	// ファイルチェック

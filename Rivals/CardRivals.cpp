@@ -12,14 +12,15 @@ CardRivals::CardRivals() {
 	power = 0;
 }
 
+
 CardRivals::CardRivals(const string plane_text) {
 	load(plane_text);
 }
 
+
 CardRivals::~CardRivals() {
 	// do nothing
 }
-
 
 
 bool CardRivals::load(const string plane_text) {
