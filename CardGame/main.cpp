@@ -1,5 +1,5 @@
 /**
- @ brief カードゲームを行う
+ @ brief カードゲームを行うプログラム
  @ date 2019/09/03
  @ author kiriyama
  **/

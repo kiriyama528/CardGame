@@ -65,7 +65,7 @@ bool CardListRivals::load(string filename) {
 		}
 	}
 
-	ifs.close(); // fix me ? ‚à‚µ‚©‚µ‚½‚ç‚¢‚ç‚È‚¢‚©‚à
+	ifs.close();
 
 	return true;
 }

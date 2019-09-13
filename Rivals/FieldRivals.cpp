@@ -1,8 +1,11 @@
-
+/**
+ * @brie
+ **/
 
 #include "Card.h"
 #include "FieldRivals.h"
 #include "CardRivals.h"
+
 
 FieldRivals::FieldRivals() {
 	card_his_p1.push_back(NULL);
@@ -21,10 +24,12 @@ FieldRivals::FieldRivals() {
 	draw_storage[P2] = 0;
 }
 
+
 FieldRivals::~FieldRivals() {
 	card_his_p1.clear();
 	card_his_p2.clear();
 }
+
 
  bool FieldRivals::playCards(
 			CardRivals * c1,
@@ -46,7 +51,6 @@ FieldRivals::~FieldRivals() {
 	card_his_p1.emplace_back(c1);
 	card_his_p2.emplace_back(c2);
 
-	// fix me スマートになるように書き直し
 	// 能力解決により勝利数が変化していたら
 	if (wins[P1] != 0 || wins[P2] != 0) {
 		p1_wins = wins[P1];
@@ -77,12 +81,12 @@ FieldRivals::~FieldRivals() {
 
 
 bool FieldRivals::enchantment(const CardRivals *c1, const CardRivals *c2) {
-	// fix me falseになるエラー処理あるかな？
+	// fix me falseになるエラー処理があるなら追加
 	powers[P1] = c1->get_power() + power_up[P1];
 	powers[P2] = c2->get_power() + power_up[P2];
 
 	power_up[P1] = power_up[P2] = 0;
-	reveal[P1] = reveal[P2] = false; // フラグリセットのタイミング的にはここだけど、効果発動が難しい
+	reveal[P1] = reveal[P2] = false;
 
 	return true;
 }
@@ -104,7 +108,7 @@ FieldRivals::ABILITY_TAG FieldRivals::branchAbility(const CardRivals *c) {
 	unsigned int n_template = sizeof(template_txt) / sizeof(template_txt[0]);
 	for (int i = 0; i < n_template; i++) {
 		if (txt == template_txt[i]) {
-			return (ABILITY_TAG)i; // fix me もっとスマートな書き方にしたい
+			return (ABILITY_TAG)i;
 		}
 	}
 
@@ -112,10 +116,9 @@ FieldRivals::ABILITY_TAG FieldRivals::branchAbility(const CardRivals *c) {
 }
 
 
-bool FieldRivals::abilityDraw() {
+void FieldRivals::abilityDraw() {
 	powers[P1] =
 		powers[P2] = 0;
-	return true;
 }
 
 
@@ -129,44 +132,45 @@ bool FieldRivals::abilityPrincess(PLAYER_NUMBER p, ABILITY_TAG you_tag) {
 }
 
 
-bool FieldRivals::abilitySpy(PLAYER_NUMBER p) {
+void FieldRivals::abilitySpy(PLAYER_NUMBER p) {
 	
 	// 自分も公開しないといけない状態ならば
 	if (reveal[p]) {
 		// お互い公開しない
 		reveal[P1] = reveal[P2] = false;
-		return true;
+		return;
 	}
 
 	reveal[N_PLAYERS-1 - p] = true;
-	return true;
 }
 
-bool FieldRivals::abilityReverse() {
+
+void FieldRivals::abilityReverse() {
 	powers[P1] = -powers[P1];
 	powers[P2] = -powers[P2];
-	return true;
 }
 
-bool FieldRivals::abilityDouble(PLAYER_NUMBER p) {
+
+void FieldRivals::abilityDouble(PLAYER_NUMBER p) {
 	draw_storage[p] += 1;
-	return true;
 }
 
-bool FieldRivals::abilityPowerUp(PLAYER_NUMBER p, int up) {
+
+void FieldRivals::abilityPowerUp(PLAYER_NUMBER p, int up) {
 	power_up[p] = up;
-	return true;
 }
 
-bool FieldRivals::abilityWin(PLAYER_NUMBER p) {
-	powers[p] += 10; // パワーアップによる勝利確定とする
-	return true;
+
+void FieldRivals::abilityWin(PLAYER_NUMBER p) {
+	// パワーアップにより擬似的に処理
+	// 王子同士や将軍の効果も考慮できる
+	powers[p] += PRINCE_POWER_UP;
 }
 
 
 bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 	const CardRivals *cc[N_PLAYERS] = { c1, c2 };
-	//	void (*fpfunc[N_PLAYERS])(CardRivals*); // 使えなかった
+	//	void (*fpfunc[N_PLAYERS])(CardRivals*); // 使いたかったが不適
 	ABILITY_TAG abi_tag[N_PLAYERS];
 
 	for (int i = 0; i < N_PLAYERS; i++) {
@@ -236,7 +240,7 @@ bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 }
 
 
-bool FieldRivals::isReveal(bool *reveal_flag) {
+bool FieldRivals::isReveal(bool reveal_flag[N_PLAYERS]) {
 	bool tmp = false;
 	for (int i = 0; i < N_PLAYERS; i++) {
 		reveal_flag[i] = reveal[i];

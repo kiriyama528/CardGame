@@ -45,7 +45,8 @@ void Hands::showLineUp(unsigned int upper, unsigned int left, float scale) {
 		// ウィンドウの表示
 		char title[256];
 		sprintf_s(title, "hands[%d]", i);
-		cards_shadow[i]->show(title, scale, y, x, false);
+		string w_name = cards_shadow[i]->show(title, scale, y, x, false);
+		window_names.push_back(w_name);
 		
 		// 次に表示するウィンドウの位置決め
 		cards_shadow[i]->getImgSize(&rows, &cols);
@@ -53,8 +54,20 @@ void Hands::showLineUp(unsigned int upper, unsigned int left, float scale) {
 	}
 
 	cv::waitKey();
-	cv::destroyAllWindows();
+	
+}
 
+void Hands::destroyAllWindows() {
+	for (int i = 0; i < window_names.size(); i++) {
+		string name = window_names[i];
+		if (name != "") {
+			// ウィンドウが生成できなかったときは""となっているため
+			cv::destroyWindow(name);
+		}
+	}
+	
+	// これだとほかのウィンドウも巻き込まれて消えてしまう
+	// cv::destroyAllWindows();
 }
 
 int Hands::in(Card* cs) {
@@ -75,7 +88,6 @@ Card* Hands::out(int idx) {
 }
 
 void Hands::sort() {
-	// test 本当にうまくいくかどうか
 	std::sort(
 		cards_shadow.begin()
 		, cards_shadow.end()

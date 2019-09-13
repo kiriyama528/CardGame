@@ -1,3 +1,11 @@
+/**
+ * @brief カード郡の生成と、カードの実態を管理する。
+ *        必要なカードは最初に全部生成してしまう。途中からカードが増えたりはしない。
+ *        このクラスの破棄時に、カード実態もすべて破棄する。ゲーム終了時に破棄すること。
+ * @date 2019/09/04
+ * @author kiriyama tomoya
+ **/
+
 
 #include <iostream>
 #include <string>
@@ -5,8 +13,6 @@
 
 #include "Card.h"
 #include "CardList.h"
-
-
 
 
 CardList::CARD_CLASS CardList::cardClassBranch(const char* str) {
@@ -18,6 +24,7 @@ CardList::CARD_CLASS CardList::cardClassBranch(const char* str) {
 	}
 }
 
+
 CardList::CardList() {
 	// do nothing
 }
@@ -26,6 +33,7 @@ CardList::CardList() {
 CardList::CardList(string filename) {
 	load(filename);
 }
+
 
 CardList::~CardList() {
 	// メモ：vector<Card> cards
@@ -74,7 +82,7 @@ bool CardList::load(string filename) {
 		}
 	}
 
-	ifs.close(); // fix me ? もしかしたらいらないかも
+	ifs.close();
 
 	return true;
 }

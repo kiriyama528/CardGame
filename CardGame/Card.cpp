@@ -1,3 +1,10 @@
+/**
+ * @brief カードに対するクラス
+ * @date 2019/09/13
+ * @author kiriyama tomoya
+ **/
+
+
 #include <iostream>
 #include <string>
 
@@ -69,17 +76,20 @@ void Card::show(string img_head, SHOW_TYPE type) {
 	
 	// 画像も表示するか
 	if (type == SHOW_IMG_TEXT && !img.empty()) {
-		cv::imshow(name, img);
+		string title = img_head + name;
+		cv::imshow(title, img);
 		cv::waitKey(0);
-		cv::destroyWindow(name); // fix me いったん表示するって感じで
+		cv::destroyWindow(title);
 	}
 }
 
 string Card::show(const string title, float scale, unsigned int upper, unsigned int left, bool is_wait) {
 	if (!img.empty()) {
 		cv::namedWindow(title, cv::WINDOW_AUTOSIZE | cv::WINDOW_KEEPRATIO);
+		
 		cv::Mat img_res;
 		cv::resize(img, img_res, cv::Size(), scale, scale);
+		
 		cv::imshow(title, img_res);
 		cv::moveWindow(title, left, upper);
 		if (is_wait) {
@@ -89,7 +99,7 @@ string Card::show(const string title, float scale, unsigned int upper, unsigned 
 	}
 	else {
 		fprintf(stderr, " Warning : %s カードで表示する画像がありませんでした\n", name.c_str());
-		return 0;  // fix me より適切なエラーをreturnしろ
+		return "";
 	}
 }
 
@@ -97,12 +107,12 @@ string Card::show(const string title, float scale, unsigned int upper, unsigned 
 /**
  * @brief 文字を分割しcolsで指す。今のところ区切り文字は ','に固定
  **/
-int Card::split_plane(char *plane_text, char **cols) {
+int Card::split_plane(char *plane_text, char *cols[]) {
 	int cnt = 0;
 	cols[0] = plane_text;
 	cnt++;
 	while (*plane_text) {
-		// fix me 区切り文字は','。決めうちはよくない。柔軟にしよう
+		// カードリストファイルの区切り文字は','に決めうち
 		if (*plane_text == ',') {
 			*plane_text = '\0';
 			// 最後に ',' が入っているような特殊な状況であれば

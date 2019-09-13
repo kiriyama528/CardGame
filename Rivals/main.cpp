@@ -30,13 +30,15 @@ using namespace std;
  * @brief カード選択をプレイヤーに促し、選択させる
  **/
 Card *selectCard(Hands &hand) {
-	Card *card;
+	Card *card = NULL;
 	do {
 		printf("Select card idx.\n > ");
 		int idx;
-		cin >> idx;  // fix me 文字などの予定外が来るとバグる
+		if (cin >> idx) {
+			// きちんと数字が入った場合
+			card = hand.out(idx);
+		}
 		
-		card = hand.out(idx);
 	} while (card == NULL);
 
 	return card;

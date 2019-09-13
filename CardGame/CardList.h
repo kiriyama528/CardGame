@@ -7,7 +7,9 @@
  *        必要なカードは最初に全部生成してしまう。途中からカードが増えたりはしない。
  *        このクラスの破棄時に、カード実態もすべて破棄する。ゲーム終了時に破棄すること。
  * @date 2019/09/04
+ * @author kiriyama tomoya
  **/
+
 class CardList {
 private:
 	typedef enum {
