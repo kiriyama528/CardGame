@@ -55,8 +55,15 @@ FieldRivals::~FieldRivals() {
 
 	// ”\—Í‰ğŒˆ‚É‚æ‚èŸ—˜”‚ª•Ï‰»‚µ‚Ä‚¢‚½‚ç
 	if (wins[P1] != 0 || wins[P2] != 0) {
-		p1_wins = wins[P1];
-		p2_wins = wins[P2];
+		if (wins[P1] != 0) {
+			p1_wins = wins[P1] + draw_storage[P1];
+		}
+		else {
+			p2_wins = wins[P2] + draw_storage[P2];
+		}
+		
+		draw_storage[P1] =
+		draw_storage[P2] = 0;
 		return true;
 	}
 	else { // •’Ê‚ÉŸ”sŸ•‰

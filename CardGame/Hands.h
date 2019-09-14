@@ -47,12 +47,14 @@ public:
 
 	/**
 	 * @brief 手札を並べてすべて表示する。左上の座標やスケールも指定
+	 * @param title_head ウィンドウタイトルに表示する頭文章(例 P1:)
 	 * @param upper 始点 y座標
 	 * @param left 始点 x座標
 	 * @param scale 読み込み画像に対する表示倍率
+	 * @param is_wait ウィンドウ表示後にwaitKey()するかどうか
 	 * メモ：destroyAllWindows() でウィンドウを消せる
 	 **/
-	void showLineUp(unsigned int upper, unsigned int left, float scale);
+	void showLineUp(string title_head, unsigned int upper, unsigned int left, float scale, bool is_wait=false);
 
 	// 
 	/**

@@ -116,7 +116,6 @@ int main_test(void) {
 		}
 	}
 
-	//
 	printf("全部終了\n");
 
 	// 一時停止
@@ -138,9 +137,9 @@ int main(void) {
 	while (wins[0] < 4 && wins[1] < 4) {
 		// 手札の表示
 		printf(" -- Player 1 hands -- \n");
-		hands_p1.showLineUp(0, 0, IMG_SCALE);
+		hands_p1.showLineUp("P1", 0, 0, IMG_SCALE, false);
 		printf(" -- Player 2 hands -- \n");
-		hands_p2.showLineUp(500, 0, IMG_SCALE);
+		hands_p2.showLineUp("P2", 500, 0, IMG_SCALE, true);
 		
 		CardRivals *card_p1 = NULL;  // 今勝負で使用するカード
 		CardRivals *card_p2 = NULL;  // 今勝負で使用するカード
@@ -175,6 +174,10 @@ int main(void) {
 			fprintf(stderr, " ERROR: 手札選択時に想定外の型が返されました.\n");
 			exit(1);
 		}
+
+		// 手札表示の終了
+		hands_p1.destroyAllWindows();
+		hands_p2.destroyAllWindows();
 
 		// 選択した手札の公開
 		card_p1->show();

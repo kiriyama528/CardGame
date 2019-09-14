@@ -38,13 +38,13 @@ void Hands::show(int idx, Card::SHOW_TYPE show_type) {
 	printf("\n");
 }
 
-void Hands::showLineUp(unsigned int upper, unsigned int left, float scale) {
+void Hands::showLineUp(const string title_head, unsigned int upper, unsigned int left, float scale, bool is_wait) {
 	unsigned int x = left, y = upper;
 	unsigned int rows = 0, cols = 0;
 	for (unsigned int i = 0; i < cards_shadow.size(); i++) {
 		// ウィンドウの表示
 		char title[256];
-		sprintf_s(title, "hands[%d]", i);
+		sprintf_s(title, "%shands[%d]", title_head.c_str(), i);
 		string w_name = cards_shadow[i]->show(title, scale, y, x, false);
 		window_names.push_back(w_name);
 		
@@ -53,7 +53,7 @@ void Hands::showLineUp(unsigned int upper, unsigned int left, float scale) {
 		x += (unsigned int)(cols * scale);
 	}
 
-	cv::waitKey();
+	if (is_wait)	cv::waitKey();
 	
 }
 
@@ -66,6 +66,8 @@ void Hands::destroyAllWindows() {
 		}
 	}
 	
+	window_names.clear();
+
 	// これだとほかのウィンドウも巻き込まれて消えてしまう
 	// cv::destroyAllWindows();
 }
