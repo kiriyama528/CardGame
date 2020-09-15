@@ -4,6 +4,8 @@
 * @author kiriyama tomoya
 **/
 
+#include <fstream>
+
 #include "CardListRivals.h"
 #include "CardRivals.h"
 
