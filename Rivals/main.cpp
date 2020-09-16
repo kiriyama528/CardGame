@@ -125,7 +125,7 @@ int main_test(void) {
 }
 
 
-
+/* Staticライブラリにしたのでコメントアウト
 int main(void) {
 	CardListRivals card_list("card_rival_list.txt");
 	Hands hands_p1(card_list.shadow()), hands_p2(card_list.shadow());
@@ -210,3 +210,4 @@ int main(void) {
 
 	return 0;
 }
+*/

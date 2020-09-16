@@ -24,7 +24,7 @@
 
 using namespace std;
 
-
+/* Staticライブラリにしたのでコメントアウト
 int main(void) {
 	CardList card_list("card_list.txt");
 	Deck deck(card_list);
@@ -51,3 +51,4 @@ int main(void) {
 	return 0;
 }
 
+*/
