@@ -87,7 +87,7 @@ public:
 	static bool endStr(char target);
 
 	/**
-	 * @brief 文字列を",(コンマ)"で要素文字列に分解する。plane_textの分解用
+	 * @brief 文字列を",(コンマ)"で要素文字列に分解する。破壊的文字列操作。
 	 * @param plane_text 分解したい文字列
 	 * @param cols 分解したそれぞれの要素文字列の先頭文字をさすポインタ配列
 	 * @return 分解した要素数
