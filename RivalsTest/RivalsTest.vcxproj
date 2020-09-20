@@ -89,7 +89,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\opencv\build\x64\vc15\lib;$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Rivalsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Rivals.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
