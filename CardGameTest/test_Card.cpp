@@ -20,11 +20,21 @@ public:
 	void set_ability(char* _ability_text) {
 		ability_text = _ability_text;
 	}
+
+	// loadImage()関数がprotectedなので、この関数から呼び出す
+	bool call_loadImage(const string filename) {
+		return loadImage(filename);
+	}
+
 };
 
 
 class UnitTestCard : public ::testing::Test {
 protected:
+	const char* input_img = "../../test_data/CardGameTest/input/ki.png";
+	const int img_rows = 70;
+	const int img_cols = 51;
+
 	virtual void SetUp() {
 		// do nothing
 	}
@@ -34,13 +44,14 @@ protected:
 	}
 };
 
-// making
 TEST_F(UnitTestCard, loadImage) {
-	Card card;
+	CardDummy card;
 
-	const string filename = "";  // TODO making テスト画像の配置
+	const string error_filename = "not_exist_file.abc"; // 存在しないファイル
+	EXPECT_FALSE(card.call_loadImage(error_filename));
 
-	// card.loadImage();  // protectedの関数だからどうやってテストしようか
+	const string filename = input_img;
+	EXPECT_TRUE(card.call_loadImage(filename));
 }
 
 
@@ -53,6 +64,9 @@ TEST_F(UnitTestCard, load) {
 // making
 TEST_F(UnitTestCard, show) {
 	Card card;
+	string actual = card.show("nothing", 1.f, 0, 0, false);
+	EXPECT_STREQ("", actual.c_str());
+
 
 }
 
@@ -102,12 +116,14 @@ TEST_F(UnitTestCard, split_plane) {
 
 }
 
-// making
 TEST_F(UnitTestCard, getImgSize) {
-	Card card;
+	CardDummy card;
 	unsigned int rows, cols;
 	EXPECT_FALSE(card.getImgSize(&rows, &cols));
 
-	/// 画像読み込み
-	/// 目的の画像が読み込めているかチェック
+	card.call_loadImage(input_img);
+
+	EXPECT_TRUE(card.getImgSize(&rows, &cols));
+	EXPECT_EQ(img_rows, rows);
+	EXPECT_EQ(img_cols, cols);
 }
