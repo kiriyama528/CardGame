@@ -53,7 +53,7 @@ public:
 	 * @param img_head ウィンドウのタイトル
 	 * @param type 表示形式の指定
 	 **/
-	virtual void show(string img_head="", SHOW_TYPE type=SHOW_IMG_TEXT);
+	virtual bool show(const string title_head, SHOW_TYPE type=SHOW_IMG_TEXT);
 
 	/**
 	 * @brief カードを指定の場所とscaleで表示する

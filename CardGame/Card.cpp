@@ -70,17 +70,19 @@ bool Card::load(const string plane_text){
 	return true;
 }
 
-void Card::show(string img_head, SHOW_TYPE type) {
+bool Card::show(const string title_head, SHOW_TYPE type) {
 	cout << "name : " << name << endl;
 	cout << "ability : " << ability_text << endl;
 	
 	// ‰æ‘œ‚à•\Ž¦‚·‚é‚©
 	if (type == SHOW_IMG_TEXT && !img.empty()) {
-		string title = img_head + name;
+		string title = title_head + name;
 		cv::imshow(title, img);
 		cv::waitKey(0);
 		cv::destroyWindow(title);
 	}
+
+	return true;
 }
 
 string Card::show(const string title, float scale, unsigned int upper, unsigned int left, bool is_wait) {

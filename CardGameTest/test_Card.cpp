@@ -28,7 +28,6 @@ public:
 
 };
 
-
 class UnitTestCard : public ::testing::Test {
 protected:
 	const char* input_img = "../../test_data/CardGameTest/input/ki.png";
@@ -44,6 +43,17 @@ protected:
 	}
 };
 
+TEST_F(UnitTestCard, Card) {
+	Card card;
+	string act_name = card.get_name();
+	char* exp_name = "Nothing";
+	EXPECT_STREQ(exp_name, act_name.c_str());
+
+	string act_ability = card.get_ability();
+	char* exp_ability = "Nothing";
+	EXPECT_STREQ(exp_ability, act_ability.c_str());
+}
+
 TEST_F(UnitTestCard, loadImage) {
 	CardDummy card;
 
@@ -54,20 +64,34 @@ TEST_F(UnitTestCard, loadImage) {
 	EXPECT_TRUE(card.call_loadImage(filename));
 }
 
-
-// making
 TEST_F(UnitTestCard, load) {
-	
+	// 画像描画系のテストはしない
+	CardDummy card;
+	card.call_loadImage(input_img);
+	char* name = "card_name";
+	card.set_name(name);
+	char* ability = "card_ability";
+	card.set_ability(ability);
+
+	string title_head = "title_head";
+	// coutしかないので、とくにテストはなし
+	EXPECT_TRUE(card.show(title_head, Card::SHOW_TEXT));
+
+	// 画像表示系のテストはしない
+	//EXPECT_TRUE(card.show(title_head, Card::SHOW_IMG_TEXT));
 }
 
-
-// making
 TEST_F(UnitTestCard, show) {
-	Card card;
+	CardDummy card;
 	string actual = card.show("nothing", 1.f, 0, 0, false);
 	EXPECT_STREQ("", actual.c_str());
 
-
+	/* 画像描画系のテストはしない。
+	card.call_loadImage(input_img);
+	string expected = "input";
+	actual = card.show(expected, 1.f, 0, 0, false);
+	EXPECT_STREQ(expected.c_str(), actual.c_str());
+	*/
 }
 
 TEST_F(UnitTestCard, get_name) {
