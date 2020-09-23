@@ -19,12 +19,22 @@ protected:
 	}
 };
 
+// making
 TEST_F(UnitTestDeck, load) {
 	Deck deck;
 	
 }
 
+// making
 TEST_F(UnitTestDeck, draw) {
+	Card card;
+	Deck deck;
+
+
+}
+
+// making
+TEST_F(UnitTestDeck, shuffle) {
 	Card card;
 	Deck deck;
 
@@ -38,5 +48,41 @@ TEST_F(UnitTestDeck, putTop) {
 	Deck deck;
 	deck.putTop(&card[0]);
 	
+	// deck.draw();
+}
+
+// making
+TEST_F(UnitTestDeck, putBottom) {
+	Card card[2];
+	Deck deck;
+	deck.putTop(&card[0]);
+
+	// deck.draw();
+}
+
+// making
+TEST_F(UnitTestDeck, get_num) {
+	Card card[2];
+	Deck deck;
+	deck.putTop(&card[0]);
+
+	// deck.draw();
+}
+
+// making
+TEST_F(UnitTestDeck, searchIdx) {
+	Card card[2];
+	Deck deck;
+	deck.putTop(&card[0]);
+
+	// deck.draw();
+}
+
+// making
+TEST_F(UnitTestDeck, searchDraw) {
+	Card card[2];
+	Deck deck;
+	deck.putTop(&card[0]);
+
 	// deck.draw();
 }
