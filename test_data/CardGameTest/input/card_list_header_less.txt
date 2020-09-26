@@ -1,0 +1,4 @@
+ki,ability of ki,ki.png
+ri,ability of ri,ri.png
+ya,ability of ya,ya.png
+ma,ability of ma,ma.png

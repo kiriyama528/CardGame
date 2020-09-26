@@ -62,8 +62,13 @@ TEST_F(UnitTestDeck, putBottom) {
 
 // making
 TEST_F(UnitTestDeck, get_num) {
-	Card card[2];
 	Deck deck;
+	int expected = 0;
+	int actual = deck.get_num();
+	EXPECT_EQ(expected, actual);
+
+	Card card[2];
+	
 	deck.putTop(&card[0]);
 
 	// deck.draw();

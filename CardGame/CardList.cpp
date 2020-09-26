@@ -15,7 +15,7 @@
 #include "CardList.h"
 
 
-CardList::CARD_CLASS CardList::cardClassBranch(const char* str) {
+CardList::CARD_CLASS CardList::cardClassBranch(const char* str) const {
 	if (strcmp(str, "Card") == 0) {
 		return CARD;
 	}
@@ -30,7 +30,7 @@ CardList::CardList() {
 }
 
 
-CardList::CardList(string filename) {
+CardList::CardList(const string filename) {
 	load(filename);
 }
 
@@ -49,7 +49,7 @@ CardList::~CardList() {
 // card_name2,ability2,img_name2
 // card_name3,ability3,img_name3
 
-bool CardList::load(string filename) {
+bool CardList::load(const string filename) {
 #define BUFFER_SIZE 2048
 	ifstream ifs(filename);
 
@@ -78,7 +78,8 @@ bool CardList::load(string filename) {
 			break;
 		default:
 			fprintf(stderr, " ERROR : カードリストファイルで読み込みカードクラスが指定されていません\n");
-			break;
+			ifs.close();
+			return false;
 		}
 	}
 

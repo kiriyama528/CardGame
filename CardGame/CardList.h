@@ -11,29 +11,30 @@
  **/
 
 class CardList {
-private:
+protected:
+	// FIX ME もともとはpublicだった。もしかしたらバグるかも。。。
 	typedef enum {
 		CARD,
 		UNKNOWN  // 未知のclass もしくは未指定
 	} CARD_CLASS;
-	CARD_CLASS cardClassBranch(const char* str);
 
-protected:
 	// *card[N] それぞれのカードを指すポインタの配列。
 	// 実態管理用。増減しないし、操作しない。
 	vector<Card*> cards;
+
+	virtual CARD_CLASS cardClassBranch(const char* str) const;
 	
 public:
 	CardList();
 	//デッキ読み込み付き
-	CardList(string filename);
+	CardList(const string filename);
 
 	// カード郡の実態を破棄
 	~CardList();
 
 	// ファイルからカード情報郡を読み込みデッキを生成する
-	virtual bool load(string filename);
+	virtual bool load(const string filename);
 
 	// 操作用のリストを生成する
-	const vector<Card*> shadow();
+	virtual const vector<Card*> shadow();
 };
