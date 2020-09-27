@@ -36,5 +36,5 @@ public:
 	virtual bool load(const string filename);
 
 	// ‘€ì—p‚ÌƒŠƒXƒg‚ğ¶¬‚·‚é
-	virtual const vector<Card*> shadow();
+	virtual const vector<Card*> shadow() const;
 };

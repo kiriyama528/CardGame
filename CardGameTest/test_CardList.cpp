@@ -21,10 +21,6 @@ public:
 	CARD_CLASS getCardClass_UNKNOWN() const {
 		return CARD_CLASS::UNKNOWN;
 	}
-
-	vector<Card*> get_cards() const {
-		return cards;
-	}
 };
 
 class UnitTestCardList : public ::testing::Test {
@@ -78,7 +74,7 @@ TEST_F(UnitTestCardList, load_success) {
 	CardListDummy card_list;
 	const string filename = "../../test_data/CardGameTest/input/card_list.txt";
 	EXPECT_TRUE(card_list.load(filename));
-	vector<Card*> cards = card_list.get_cards();
+	vector<Card*> cards = card_list.shadow();
 	{
 		int actual = cards.size();
 		int expected = 4;
@@ -109,10 +105,4 @@ TEST_F(UnitTestCardList, load_success) {
 			//EXPECT_STREQ(exp_imgname[i], cards[i]->ge().c_str());
 		}
 	}
-}
-
-// making
-TEST_F(UnitTestCardList, shadow) {
-	Card card;
-
 }

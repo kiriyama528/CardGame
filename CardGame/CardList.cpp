@@ -89,6 +89,6 @@ bool CardList::load(const string filename) {
 }
 
 
-const vector<Card*> CardList::shadow() {
+const vector<Card*> CardList::shadow() const {
 	return cards;
 }
