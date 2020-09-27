@@ -1,5 +1,8 @@
+#include <vector>
+
 #include "pch.h"
 #include "Deck.h"
+
 
 #ifdef _DEBUG
 #define CV_EXT "d.lib"
@@ -10,18 +13,29 @@
 
 class UnitTestDeck : public ::testing::Test {
 protected:
+	const string card_list_name = "../../test_data/CardGameTest/input/card_list.txt";
+	const char* card_str[3] = {
+		"title1, bility1, 1.png",
+		"title2, bility2, 2.png",
+		"title3, bility3, 3.png",
+	};
+	vector<Card*> cards;
 	virtual void SetUp() {
-		// do nothing
+		for (int i = 0; i < 3; i++) {
+			cards[i] = new Card(card_str[i]);
+		}
 	}
 
 	virtual void TearDown() {
 		// do nothing
 	}
+	
 };
 
 // making
 TEST_F(UnitTestDeck, load) {
-	Deck deck;
+	CardList card_list(card_list_name);
+	Deck deck(card_list);
 	
 }
 
