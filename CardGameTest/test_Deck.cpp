@@ -73,7 +73,7 @@ TEST_F(UnitTestDeck, draw) {
 
 TEST_F(UnitTestDeck, shuffle) {
 	DeckDummy deck;
-	EXPECT_NO_FATAL_FAILURE(deck.shuffle());  // ìKêÿÇ≈ÇÕÇ»Ç¢ÇØÇ«
+	EXPECT_NO_FATAL_FAILURE(deck.shuffle());  // TESTÇ™ìKêÿÇ≈ÇÕÇ»Ç¢Ç©Ç‡
 	EXPECT_EQ(N_CARDS, deck.load(cards));
 	vector<Card*> cards = deck.getCardsShadow();
 	Card* expected[N_CARDS] = { cards[2], cards[0], cards[1] };
