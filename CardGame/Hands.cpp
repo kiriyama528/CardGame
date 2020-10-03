@@ -26,16 +26,19 @@ int Hands::load(const vector<Card*> _shadow) {
 	return cards_shadow.size();
 }
 
-void Hands::show(Card::SHOW_TYPE show_type) {
+bool Hands::show(Card::SHOW_TYPE show_type) {
+	bool result = true;
 	for (unsigned int i = 0; i < cards_shadow.size(); i++) {
-		show(i, show_type);
+		result = result && show(i, show_type);
 	}
+	return result;
 }
 
-void Hands::show(int idx, Card::SHOW_TYPE show_type) {
+bool Hands::show(int idx, Card::SHOW_TYPE show_type) {
 	printf("  < %dth of hands >\n", idx);
-	cards_shadow[idx]->show("", show_type);
+	bool result = cards_shadow[idx]->show("", show_type);
 	printf("\n");
+	return result;
 }
 
 void Hands::showLineUp(const string title_head, unsigned int upper, unsigned int left, float scale, bool is_wait) {

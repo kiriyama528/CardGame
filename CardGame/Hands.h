@@ -35,15 +35,17 @@ public:
 	/**
 	 * @brief 手札を１枚ずつ、全部表示する。Cardのshowに従う
 	 * @param show_type カード表示形式を指定する
+	 * @return (全て表示できた) true / false (1つでも失敗した)
 	 **/
-	void show(Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
+	bool show(Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
 
 	/**
 	 * @brief 特定の手札を1枚表示する。Cardのshowに従う
 	 * @param idx 手札番号 ( 0 <= idx < cards_shadow.size() )
 	 * @param show_type カード表示形式を指定する
+	 * @return (成功) true / false (失敗)
 	 **/
-	void show(int idx, Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
+	bool show(int idx, Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
 
 	/**
 	 * @brief 手札を並べてすべて表示する。左上の座標やスケールも指定
