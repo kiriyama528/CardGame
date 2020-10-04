@@ -61,7 +61,7 @@ bool CardList::load(const string filename) {
 	}
 
 	char buffer[BUFFER_SIZE];
-	CARD_CLASS card_class;
+	CARD_CLASS card_class = CARD_CLASS::UNKNOWN;
 	while (ifs.getline(buffer, BUFFER_SIZE)) {
 		// ÉwÉbÉ_Å[èàóù
 		if (buffer[0] == '#') {
