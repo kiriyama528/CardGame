@@ -30,14 +30,14 @@ public:
 	 * @param _shadow 手札にしたいカードポインタ郡
 	 * @return 手札の枚数
 	 **/
-	int load(const vector<Card*> _shadow);
+	virtual int load(const vector<Card*> _shadow);
 
 	/**
 	 * @brief 手札を１枚ずつ、全部表示する。Cardのshowに従う
 	 * @param show_type カード表示形式を指定する
 	 * @return (全て表示できた) true / false (1つでも失敗した)
 	 **/
-	bool show(Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
+	virtual bool show(Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
 
 	/**
 	 * @brief 特定の手札を1枚表示する。Cardのshowに従う
@@ -45,7 +45,7 @@ public:
 	 * @param show_type カード表示形式を指定する
 	 * @return (成功) true / false (失敗)
 	 **/
-	bool show(int idx, Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
+	virtual bool show(int idx, Card::SHOW_TYPE show_type = Card::SHOW_IMG_TEXT);
 
 	/**
 	 * @brief 手札を並べてすべて表示する。左上の座標やスケールも指定
@@ -56,30 +56,29 @@ public:
 	 * @param is_wait ウィンドウ表示後にwaitKey()するかどうか
 	 * メモ：destroyAllWindows() でウィンドウを消せる
 	 **/
-	void showLineUp(string title_head, unsigned int upper, unsigned int left, float scale, bool is_wait=false);
+	virtual void showLineUp(string title_head, unsigned int upper, unsigned int left, float scale, bool is_wait=false);
 
-	// 
 	/**
 	 * @brief 表示している手札(ウィンドウ)をすべて閉じる
 	 *         showLineUp()関数使用後に呼び出す と想定
 	 **/
-	void destroyAllWindows();
+	virtual void destroyAllWindows();
 
 	/**
 	 * @brief 手札に１枚カードを追加する
 	 * @return 手札の枚数
 	 **/
-	int in(Card* cs);
+	virtual int in(Card* cs);
 
 	/**
 	 * @brief 手札からカードを1枚出す
 	 * @param idx 手札番号
 	 * @return 取り除いた手札。idxが不適切ならNULL
 	 **/
-	Card* out(int idx);
+	virtual Card* out(int idx);
 
 	/**
 	 * @brief 手札を名前順(昇順)にソートする
 	 **/
-	void sort();
+	virtual void sort();
 };

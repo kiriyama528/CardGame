@@ -39,7 +39,7 @@ public:
 	Card();
 	// カードの読み込み付き
 	Card(string plane_text);
-	~Card();
+	virtual ~Card();
 
 	/**
 	 * @brief カードを読み込む
@@ -64,7 +64,7 @@ public:
 	 * @param is_wait ウィンドウ表示後にキー入力を待つか
 	 * @return windowの名前を返す。ウィンドウ削除時に参照する
 	 **/
-	string show(const string title, float scale, unsigned int upper, unsigned int left, bool is_wait);
+	virtual string show(const string title, float scale, unsigned int upper, unsigned int left, bool is_wait);
 
 	virtual bool operator < (const Card obj) const;
 	virtual bool operator > (const Card obj) const;
