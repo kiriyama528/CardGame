@@ -61,6 +61,8 @@ namespace testHand {
 		unsigned int upper = 0;
 		unsigned int left = 0;
 		bool is_wait = true;
+		const int IMG_COLS = 10;
+		const int IMG_ROWS = 20;
 
 		CardDummy() : Card() {
 			// do nothing
@@ -99,6 +101,12 @@ namespace testHand {
 			_left = left;
 			_is_wait = is_wait;
 			return called_title_head;
+		}
+
+		virtual bool getImgSize(unsigned int *rows, unsigned int *cols) const override{
+			*rows = IMG_ROWS;
+			*cols = IMG_COLS;
+			return true;
 		}
 
 	};
@@ -267,15 +275,29 @@ namespace testHand {
 		EXPECT_EQ(N_CARDS, hands.load(cards));
 
 		char title_head[64] = "test_title";
-		hands.showLineUp(title_head, 10, 20, 2.0, false);
-
+		int upper = 10;
+		int left = 20;
+		float scale = 2.0;
+		bool is_wait = false;
+		hands.showLineUp(title_head, upper, left, scale, is_wait);
+			
 		// showÇ™åƒÇ—èoÇ≥ÇÍÇΩÇ©ämîF
 		for (int i = 0; i < N_CARDS; i++) {
 			char exp_title[256];
 			sprintf(exp_title, "%shands[%d]", title_head, i);
-			const char* act_title = cards_dummy[i]->getTitleHead();
+			
+			int exp_x = left + cards_dummy[i]->IMG_COLS * scale * i;
+			float act_scale;
+			unsigned int act_upper, act_left;
+			bool act_is_wait;
+			const char* act_title = cards_dummy[i]->getShowParam(act_scale, act_upper, act_left, act_is_wait);
+			EXPECT_EQ(exp_x, act_left);
+			EXPECT_EQ(upper, act_upper);
+			EXPECT_EQ(scale, act_scale);
+			EXPECT_EQ(is_wait, act_is_wait);
 			EXPECT_STREQ(exp_title, act_title);
 		}
+
 	}
 
 	// making

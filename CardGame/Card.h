@@ -100,7 +100,7 @@ public:
 	 * @param cols (OUT)—ñ”
 	 * @return (true) æ“¾¬Œ÷ / ‰æ‘œ‚ª‚ ‚è‚Ü‚¹‚ñ (false)
 	 **/
-	bool getImgSize(unsigned int *rows, unsigned int *cols) const {
+	virtual bool getImgSize(unsigned int *rows, unsigned int *cols) const {
 		*rows = img.rows;
 		*cols = img.cols;
 		return !img.empty(); 
