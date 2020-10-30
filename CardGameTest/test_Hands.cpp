@@ -20,6 +20,10 @@ namespace testHand {
 			return cards_shadow;
 		}
 
+		vector<string> &getWindowNames(){
+			return window_names;
+		}
+
 	};
 
 	class HandsDummy_showAll : public HandsDummy {
@@ -215,7 +219,6 @@ namespace testHand {
 
 	}
 
-	// making
 	TEST_F(UnitTestHands, show_text) {
 		HandsDummy hands;
 		vector<CardDummy*> cards_dummy(N_CARDS);
@@ -262,7 +265,6 @@ namespace testHand {
 
 	}
 
-	// making
 	TEST_F(UnitTestHands, showLineUp) {
 		HandsDummy hands;
 		vector<CardDummy*> cards_dummy(N_CARDS);
@@ -300,10 +302,23 @@ namespace testHand {
 
 	}
 
-	// making
 	TEST_F(UnitTestHands, destroyAllWindows) {
-		Hands hands;
+		// 下記のようなテストコードを書こうとしたが、
+		// Windowの生成などが発生するのでテストにふさわしくない
+		//   do nothing
+		/*
+		HandsDummy hands;
+		EXPECT_EQ(N_CARDS, hands.load(cards));
+		int expected = 3;
+		int actual = hands.getWindowNames().size();
+		EXPECT_EQ(expected, actual);
 
+		hands.showLineUp();
+		hands.destroyAllWindows();
+		expected = 0;
+		actual = hands.getWindowNames().size();
+		EXPECT_EQ(expected, actual);
+		*/
 	}
 
 	// making
