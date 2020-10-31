@@ -309,11 +309,11 @@ namespace testHand {
 		/*
 		HandsDummy hands;
 		EXPECT_EQ(N_CARDS, hands.load(cards));
+		hands.showLineUp();
 		int expected = 3;
 		int actual = hands.getWindowNames().size();
 		EXPECT_EQ(expected, actual);
 
-		hands.showLineUp();
 		hands.destroyAllWindows();
 		expected = 0;
 		actual = hands.getWindowNames().size();
@@ -321,10 +321,14 @@ namespace testHand {
 		*/
 	}
 
-	// making
 	TEST_F(UnitTestHands, in) {
-		Hands hands;
-
+		HandsDummy hands;
+		hands.load(cards);
+		Card new_card;
+		hands.in(&new_card);
+		int expected = N_CARDS + 1;
+		int actual = hands.getCardsShadow().size();
+		EXPECT_EQ(expected, actual);
 	}
 
 	// making
