@@ -331,15 +331,54 @@ namespace testHand {
 		EXPECT_EQ(expected, actual);
 	}
 
-	// making
 	TEST_F(UnitTestHands, out) {
-		Hands hands;
+		HandsDummy hands;
+		hands.load(cards);
+		
+		Card *exp_card = cards[1];
+		Card *act_card = hands.out(1);
+		EXPECT_EQ(exp_card, act_card);
 
+		exp_card = NULL;
+		act_card = hands.out(2);
+		EXPECT_EQ(exp_card, act_card);
+
+		exp_card = cards[2];
+		act_card = hands.out(1);
+		EXPECT_EQ(exp_card, act_card);
+
+		exp_card = cards[0];
+		act_card = hands.out(0);
+		EXPECT_EQ(exp_card, act_card);
+
+		exp_card = NULL;
+		act_card = hands.out(0);
+		EXPECT_EQ(exp_card, act_card);
 	}
 
 	// making
 	TEST_F(UnitTestHands, sort) {
-		Hands hands;
+		const char* _card_str[N_CARDS] = {
+			"c, bility1, 1.png",
+			"a, bility2, 2.png",
+			"b, bility3, 3.png",
+		};
+		vector<Card*> _cards;
+		
+		_cards.resize(N_CARDS);
+		for (int i = 0; i < N_CARDS; i++) {
+			_cards[i] = new Card(_card_str[i]);
+		}
+		
+		HandsDummy hands;
+		hands.load(_cards);
+		hands.sort();
+		vector<Card*> act_card_shadow = hands.getCardsShadow();
+		char *exp_title[] = { "a", "b", "c" };
+		for (int i = 0; i < N_CARDS; i++) {
+			string act_title = act_card_shadow[i]->get_name();
+			EXPECT_STREQ(exp_title[i], act_title.c_str());
+		}
 
 	}
 

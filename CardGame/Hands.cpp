@@ -94,7 +94,6 @@ Card* Hands::out(int idx) {
 
 void Hands::sort() {
 	std::sort(
-		cards_shadow.begin()
-		, cards_shadow.end()
+		cards_shadow.begin(), cards_shadow.end()
 		, [](const Card* x, const Card* y) {return *x < *y; });
 }
