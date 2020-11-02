@@ -1,7 +1,3 @@
-// 以下の関数をCardDummyに作ったので、showLineUpをテストする
-// virtual string show(const string _title, float _scale, unsigned int _upper, unsigned int _left, bool _is_wait) override {
-// virtual char *getShowParam(float &_scale, unsigned int &_upper, unsigned int &_left, bool &_is_wait) {
-
 #include "pch.h"
 #include "Hands.h"
 
@@ -356,7 +352,6 @@ namespace testHand {
 		EXPECT_EQ(exp_card, act_card);
 	}
 
-	// making
 	TEST_F(UnitTestHands, sort) {
 		const char* _card_str[N_CARDS] = {
 			"c, bility1, 1.png",

@@ -70,9 +70,6 @@ void Hands::destroyAllWindows() {
 	}
 	
 	window_names.clear();
-
-	// これだとほかのウィンドウも巻き込まれて消えてしまう
-	// cv::destroyAllWindows();
 }
 
 int Hands::in(Card* cs) {
