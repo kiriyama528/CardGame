@@ -1,6 +1,3 @@
-// Cardライブラリが読み込めなくてエラーが出ているみたい
-// CardGameTestプロジェクトと比較してリンカー関連を修正しよう！
-
 #include "pch.h"
 #include "CardRivals.h"
 
