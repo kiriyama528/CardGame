@@ -1,0 +1,5 @@
+#class CardRivals
+# card_name,ability_text,img_name,(uint)power
+title1,ability1,img1,1
+title2,ability2,img2,2
+title3,ability3,img3,3
