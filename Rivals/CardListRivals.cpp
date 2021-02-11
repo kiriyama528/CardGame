@@ -23,8 +23,7 @@ CardListRivals::CardListRivals(string filename)
 
 CardListRivals::~CardListRivals()
 {
-	// 親クラスのデストラクタを呼び出さないといけないのだが
-	// making
+	// do nothing
 }
 
 
@@ -77,4 +76,15 @@ bool CardListRivals::load(string filename) {
 	ifs.close();
 
 	return true;
+}
+
+const vector<CardRivals*> CardListRivals::rivals_shadow() const{
+	// HACK : もっといい方法があると思う
+	vector<Card*> card = CardList::shadow();
+	int n_card = card.size();
+	vector<CardRivals*> card_rivals(n_card);
+	for (int i = 0; i < n_card; i++) {
+		card_rivals[i] = dynamic_cast<CardRivals*>(card[i]);
+	}
+	return card_rivals;
 }

@@ -9,6 +9,7 @@
 #include <string>
 
 #include "CardList.h"
+#include "CardRivals.h" // TODO: いらないかも、要チェック
 
 class CardListRivals : public CardList {
 private:
@@ -27,13 +28,14 @@ private:
 	 * @param str カードクラス情報が書かれた文字列ポインタ
 	 * @return カードのクラスタグ
 	 **/
+	// TODO : 別クラスにするなどしてpublicメソッドにする
 	CARD_CLASS cardClassBranch(const char* str);
 
 public:
 	CardListRivals();
 	// カードリストの読み込み付き
 	CardListRivals(string filename);
-	~CardListRivals();
+	virtual ~CardListRivals();
 
 	/**
 	 * @brief ファイルからカード情報郡を読み込み実態を生成する
@@ -41,5 +43,9 @@ public:
 	 * @return (true) 正常終了 / 異常発生 (false)
 	 **/
 	virtual bool load(string filename);
+
+	// HACK: 汚いので、よりキレイなコードに書き直す
+	// 操作用のリストを生成する
+	virtual const vector<CardRivals*> rivals_shadow() const;
 
 };

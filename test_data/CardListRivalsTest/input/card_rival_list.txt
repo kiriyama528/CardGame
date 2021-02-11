@@ -1,6 +1,6 @@
 #class CardRivals
 # card_name,ability_text,img_name,(uint)power
-title1,ability1,img1,1
-title2,ability2,img2,2
-title3,ability3,img3,3
-title4,ability4,img4,4
+title1,ability1,img1.png,1
+title2,ability2,img2.png,2
+title3,ability3,img3.png,3
+title4,ability4,img4.png,4

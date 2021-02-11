@@ -30,7 +30,7 @@ public:
 	CardList(const string filename);
 
 	// カード郡の実態を破棄
-	~CardList();
+	virtual ~CardList();
 
 	// ファイルからカード情報郡を読み込みデッキを生成する
 	virtual bool load(const string filename);
