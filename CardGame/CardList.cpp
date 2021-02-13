@@ -15,16 +15,6 @@
 #include "CardList.h"
 
 
-CardList::CARD_CLASS CardList::cardClassBranch(const char* str) const {
-	if (strcmp(str, "Card") == 0) {
-		return CARD;
-	}
-	else {
-		return UNKNOWN;
-	}
-}
-
-
 CardList::CardList() {
 	// do nothing
 }
@@ -41,6 +31,16 @@ CardList::~CardList() {
 		delete cards[i]; // À‘Ô‚Ìíœ
 	}
 	cards.clear(); // ƒ|ƒCƒ“ƒ^vector‚Ì‰Šú‰»
+}
+
+
+CardList::CARD_CLASS CardList::cardClassBranch(const char* str) const {
+	if (strcmp(str, "Card") == 0) {
+		return CARD;
+	}
+	else {
+		return UNKNOWN;
+	}
 }
 
 
