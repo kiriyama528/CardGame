@@ -11,12 +11,17 @@
 #include "CardList.h"
 #include "CardRivals.h" // TODO: いらないかも、要チェック
 
+
+// TODO : わざわざ継承してoverrideする必要はないのでは？
+//        親クラスをインターフェースにしたほうがよいかも
 class CardListRivals : public CardList {
 private:
 	// カードリスト1行を読み込むバッファサイズ
 #define BUFFER_SIZE 2048 
 
 	// カードのクラスタグ
+	// TODO : 親クラスでも同盟のenum定義があって危険
+	//        もう少し適切な記述方法があるはず
 	typedef enum {
 		CARD,
 		RIVALS,
@@ -29,6 +34,8 @@ private:
 	 * @return カードのクラスタグ
 	 **/
 	// TODO : 別クラスにするなどしてpublicメソッドにする
+	//        テストを書くために。
+	//        カードブランチ機能自体は、将来実装するものも分類してよいのでは？
 	CARD_CLASS cardClassBranch(const char* str);
 
 public:
