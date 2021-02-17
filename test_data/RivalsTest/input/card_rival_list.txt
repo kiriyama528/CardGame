@@ -1,0 +1,10 @@
+#class CardRivals
+# card_name,ability_text,img_name,(uint)power
+“¹‰»,Ÿ‰ñ‚É‚¿‰z‚µ,img/jester.png,0
+•P,‰¤q‚È‚çƒQ[ƒ€‚ÉŸ—˜,img/princess.png,1
+–§’ã,Ÿ‰ñ‚Í‘ŠèŒöŠJ,img/spy.png,2
+ˆÃEÒ,‹­ã”½“],img/assasin.png,3
+‘åb,‚QŸ,img/minister.png,4
+–‚pt,–³Œø‰»,img/wizard.png,5
+«ŒR,Ÿ‰ñ‚Í{‚Q,img/general.png,6
+‰¤q,â‘ÎŸ—˜,img/prince.png,7

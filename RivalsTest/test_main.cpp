@@ -1,117 +1,100 @@
+
+#include "pch.h"
+#include "Card.h"
+#include "CardListRivals.h"
+#include "FieldRivals.h"
+
 #include <assert.h>
 #include <vector>
 
-
-// TODO : 適切な名前にする
-void Test1() {
-	CardListRivals card_list("card_rival_list.txt");
-	const vector<Card *> cards = card_list.shadow(); // 消費しない手札
-	FieldRivals field;
-
-	const vector<int> p1_idx = { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3 };
-	const vector<int> p2_idx = { 0, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7 };
-	const unsigned int ans_p1[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 2, 0, 1, 0 };
-	const unsigned int ans_p2[] = { 0, 0, 0, 0, 0, 7, 0, 0, 0, 4, 0, 2, 1, 1, 0, 0, 0, 2, 1, 1, 1, 0, 0, 1, 0, 1 };
-
-	PlayAndExpect();
-}
+using namespace std;
 
 
-// TODO : 適切な名前にする
-void Test2() {
-	CardListRivals card_list("card_rival_list.txt");
-	const vector<Card *> cards = card_list.shadow(); // 消費しない手札
-	FieldRivals field;
+class TestRivalsMain : public ::testing::Test {
+protected:
+	CardListRivals *card_list_;
+	vector<Card *> cards_;
+	FieldRivals *field_;
 
-	const vector<int> p1_idx = { 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7 };
-	const vector<int> p2_idx = { 4, 5, 6, 7, 5, 6, 7, 6, 7, 7, 1 };
-	const unsigned int ans_p1[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 };
-	const unsigned int ans_p2[] = { 0, 3, 1, 1, 0, 2, 1, 0, 2, 0, 4 };
+	virtual void SetUp() {
+		card_list_ = new CardListRivals("../../test_data/RivalsTest/input/card_rival_list.txt");
+		cards_ = card_list_->shadow(); // 消費しない手札
+		field_ = new FieldRivals;
+	}
 
-	PlayAndExpect();
-}
+	virtual void TearDown() {
+		delete card_list_;
+		delete field_;
+	}
 
-
-// TODO : 適切な名前にする
-void Test3() {
-	CardListRivals card_list("card_rival_list.txt");
-	const vector<Card *> cards = card_list.shadow(); // 消費しない手札
-	FieldRivals field;
-
-	// 要注意確認
-	const vector<int> p1_idx = { 5, 5, 5, 5, 5, 5, 5, 5, 6, 5, 4 };
-	const vector<int> p2_idx = { 0, 1, 2, 3, 4, 5, 6, 4, 7, 7, 2 };
-	const unsigned int ans_p1[] = { 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 3 };
-	const unsigned int ans_p2[] = { 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0 };
-
-	// 5はすべての効果を無効化した
-
-	PlayAndExpect();
-}
+	void PlayAndIsExpected(
+		const vector<int> &p1_idx,
+		const vector<int> &p2_idx,
+		const unsigned int *exp_p1,
+		const unsigned int *exp_p2)
+	{
+		for (int i = 0; i < p1_idx.size(); i++) {
+			printf("\ridx:%d", i);
+			// 今勝負で使用するカード
+			CardRivals *card_p1 = dynamic_cast<CardRivals*>(cards_[p1_idx[i]]);
+			CardRivals *card_p2 = dynamic_cast<CardRivals*>(cards_[p2_idx[i]]);
 
 
-// TODO : 適切な名前にする
-void Test4() {
-	CardListRivals card_list("card_rival_list.txt");
-	const vector<Card *> cards = card_list.shadow(); // 消費しない手札
-	FieldRivals field;
-
-	// 要注意確認
-	const vector<int> p1_idx = { 6, 1, 6, 1, 6, 2, 6, 3, 6, 4 };
-	const vector<int> p2_idx = { 7, 2, 7, 3, 7, 3, 7, 3, 7, 5 };
-	const unsigned int ans_p1[] = { 0, 1, 0, 0, 0, 0, 0, 1, 0, 1 };
-	const unsigned int ans_p2[] = { 1, 0, 1, 0, 2, 1, 1, 0, 1, 0 };
-
-	PlayAndExpect();
-}
-
-
-// TODO : 適切な引数を入れる
-// TODO : 関数名も適切な名前にしろ
-// TODO : assert関数を入れろ
-void PlayAndExpect(){
-	for (int i = 0; i < p1_idx.size(); i++) {
-		printf("\ridx:%d", i);
-		// 今勝負で使用するカード
-		CardRivals *card_p1 = dynamic_cast<CardRivals*>(cards[p1_idx[i]]);
-		CardRivals *card_p2 = dynamic_cast<CardRivals*>(cards[p2_idx[i]]);
-
-
-		// 手札のプレイ winner= 0 or 1
-		unsigned int p1_wins, p2_wins;
-		if (!field.playCards(card_p1, card_p2, p1_wins, p2_wins)) {
-			// 能力解決時に問題発生
-			fprintf(stderr, " ERROR:カード能力解決時に問題発生\n 終了します\n");
-			// 選択した手札の公開
-			card_p1->show("p1:");
-			card_p2->show("p2:");
-			getchar();
-			getchar();
-			getchar();
-			exit(1);
-		}
-
-		if (ans_p1[i] != p1_wins || ans_p2[i] != p2_wins) {
-			printf(" index[%d] のとき(card[%d] - card[%d])予想と違う結果となりました。\n", i, p1_idx[i], p2_idx[i]);
-			printf(" 予想：　(P1) %d - %d (P2)\n", ans_p1[i], ans_p2[i]);
-			printf(" 結果：　(P1) %d - %d (P2)\n", p1_wins, p2_wins);
-			printf("\n");
+			// 手札のプレイ winner= 0 or 1
+			unsigned int p1_wins, p2_wins;
+			EXPECT_TRUE(field_->playCards(card_p1, card_p2, p1_wins, p2_wins));
+			
+			EXPECT_EQ(exp_p1[i], p1_wins);
+			EXPECT_EQ(exp_p2[i], p2_wins);
 		}
 	}
 
-	printf("全部終了\n");
+};
 
-	// 一時停止
-	getchar();
+
+// TODO : 適切な名前にする
+TEST_F(TestRivalsMain, case1) {
+	const vector<int> p1_idx = { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3 };
+	const vector<int> p2_idx = { 0, 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7 };
+	const unsigned int exp_p1[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 2, 0, 0, 0, 0, 0, 2, 0, 1, 0 };
+	const unsigned int exp_p2[] = { 0, 0, 0, 0, 0, 7, 0, 0, 0, 4, 0, 2, 1, 1, 0, 0, 0, 2, 1, 1, 1, 0, 0, 1, 0, 1 };
+
+	PlayAndIsExpected(p1_idx, p2_idx, exp_p1, exp_p2);
 }
 
 
-int main(void) {
-	Test1();
-	Test2();
-	Test3();
-	Test4();
+// TODO : 適切な名前にする
+TEST_F(TestRivalsMain, case2) {
+	const vector<int> p1_idx = { 4, 4, 4, 4, 5, 5, 5, 6, 6, 7, 7 };
+	const vector<int> p2_idx = { 4, 5, 6, 7, 5, 6, 7, 6, 7, 7, 1 };
+	const unsigned int exp_p1[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 };
+	const unsigned int exp_p2[] = { 0, 3, 1, 1, 0, 2, 1, 0, 2, 0, 4 };
 
-	fprintf(stderr, "\t[[ %s SUCCESS!! ]]\n", __func__);
-	return 0;
+	PlayAndIsExpected(p1_idx, p2_idx, exp_p1, exp_p2);
+}
+
+
+// TODO : 適切な名前にする
+TEST_F(TestRivalsMain, case3) {
+	// 要注意確認
+	const vector<int> p1_idx = { 5, 5, 5, 5, 5, 5, 5, 5, 6, 5, 4 };
+	const vector<int> p2_idx = { 0, 1, 2, 3, 4, 5, 6, 4, 7, 7, 2 };
+	const unsigned int exp_p1[] = { 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 3 };
+	const unsigned int exp_p2[] = { 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0 };
+
+	// 5はすべての効果を無効化した
+
+	PlayAndIsExpected(p1_idx, p2_idx, exp_p1, exp_p2);
+}
+
+
+// TODO : 適切な名前にする
+TEST_F(TestRivalsMain, case4) {
+	// 要注意確認
+	const vector<int> p1_idx = { 6, 1, 6, 1, 6, 2, 6, 3, 6, 4 };
+	const vector<int> p2_idx = { 7, 2, 7, 3, 7, 3, 7, 3, 7, 5 };
+	const unsigned int exp_p1[] = { 0, 1, 0, 0, 0, 0, 0, 1, 0, 1 };
+	const unsigned int exp_p2[] = { 1, 0, 1, 0, 2, 1, 1, 0, 1, 0 };
+
+	PlayAndIsExpected(p1_idx, p2_idx, exp_p1, exp_p2);
 }
