@@ -4,7 +4,6 @@
 #include "CardListRivals.h"
 #include "FieldRivals.h"
 
-#include <assert.h>
 #include <vector>
 
 using namespace std;
