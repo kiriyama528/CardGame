@@ -65,7 +65,7 @@ public:
 	 **/
 	bool isReveal(bool reveal_flag[N_PLAYERS]);
 
-protected:
+public:  // protected。テストのためにアクセス制限をpublcへ変更
 	// 使用履歴。先頭はNULL。後ろに追加していく
 	vector<CardRivals*> card_his_p1;
 	vector<CardRivals*> card_his_p2;
