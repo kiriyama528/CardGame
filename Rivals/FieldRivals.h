@@ -38,32 +38,6 @@ public:
 		P2
 	} PLAYER_NUMBER;
 
-	FieldRivals();
-	~FieldRivals();
-
-	/**
-	 * @brief カードをプレイする。カードの勝敗を決める
-	 * @param c1 PLAYER1 のカードを示すポインタ
-	 * @param c2 PLAYER2 のカードを示すポインタ
-	 * @param p1_wins 今回の勝負によるPLAYER1 の勝ち星
-	 * @param p2_wins 今回の勝負によるPLAYER2 の勝ち星
-	 * @return (true) 正常に終了 / 能力解決時に問題発生 (false)
-	 **/
-	bool playCards(
-		CardRivals * c1,
-		CardRivals * c2,
-		unsigned int &p1_wins,
-		unsigned int &p2_wins);
-
-	// @return ひとつでも見つかれば true. 詳細は引数へ
-	/**
-	 * @brief 次回の勝負でカードを公開するプレイヤーがいるか。いるなら誰か。
-	 * @param reveal_flag カード公開フラグのリスト。trueなら公開する
-	 *         [0]：PLAYER1
-	 *         [1]：PLAYER2
-	 * @return (true) カード公開処理が必要 / カード公開処理は不必要 (false)
-	 **/
-	bool isReveal(bool reveal_flag[N_PLAYERS]);
 
 public:  // protected。テストのためにアクセス制限をpublcへ変更
 	// 使用履歴。先頭はNULL。後ろに追加していく
@@ -154,4 +128,31 @@ public:  // protected。テストのためにアクセス制限をpublcへ変更
 	 **/
 	bool ability(const CardRivals *c1, const CardRivals *c2);
 
+public:
+	FieldRivals();
+	~FieldRivals();
+
+	/**
+	 * @brief カードをプレイする。カードの勝敗を決める
+	 * @param c1 PLAYER1 のカードを示すポインタ
+	 * @param c2 PLAYER2 のカードを示すポインタ
+	 * @param p1_wins 今回の勝負によるPLAYER1 の勝ち星
+	 * @param p2_wins 今回の勝負によるPLAYER2 の勝ち星
+	 * @return (true) 正常に終了 / 能力解決時に問題発生 (false)
+	 **/
+	bool playCards(
+		CardRivals * c1,
+		CardRivals * c2,
+		unsigned int &p1_wins,
+		unsigned int &p2_wins);
+
+	// @return ひとつでも見つかれば true. 詳細は引数へ
+	/**
+	 * @brief 次回の勝負でカードを公開するプレイヤーがいるか。いるなら誰か。
+	 * @param reveal_flag カード公開フラグのリスト。trueなら公開する
+	 *         [0]：PLAYER1
+	 *         [1]：PLAYER2
+	 * @return (true) カード公開処理が必要 / カード公開処理は不必要 (false)
+	 **/
+	bool isReveal(bool reveal_flag[N_PLAYERS]);
 };
