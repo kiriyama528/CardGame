@@ -23,7 +23,7 @@ public:
 	CardRivals();
 	// カード情報読み込み付き
 	CardRivals(const string plane_text);
-	~CardRivals();
+	virtual ~CardRivals();
 
 	/**
 	 * @brief R-Rivalsのカード情報を読み込む
