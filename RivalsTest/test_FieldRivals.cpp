@@ -10,6 +10,10 @@ class DummyCardRivals : public CardRivals {
 	unsigned int power;
 	*/
 public:
+	DummyCardRivals() {
+		// do nothing
+	}
+
 	DummyCardRivals(
 		const char* _name,
 		const char* _ability_text,
@@ -22,6 +26,10 @@ public:
 
 	virtual ~DummyCardRivals() {
 		// do nothing
+	}
+
+	void SetAbility(const char *str) {
+		ability_text = str;
 	}
 };
 
@@ -41,8 +49,39 @@ protected:
 
 TEST_F(UnitTestFieldRivals, branchAbility)
 {
-	// making
-	EXPECT_TRUE(false);
+	const int test_num = 9;
+	const char* ability_txt[] = {
+		"Ÿ‰ñ‚É‚¿‰z‚µ",
+		"‰¤q‚È‚çƒQ[ƒ€‚ÉŸ—˜",
+		"Ÿ‰ñ‚Í‘ŠèŒöŠJ",
+		"‹­ã”½“]",
+		"‚QŸ",
+		"–³Œø‰»",
+		"Ÿ‰ñ‚Í{‚Q",
+		"â‘ÎŸ—˜",
+		"Unknown"
+	};
+
+	FieldRivals::ABILITY_TAG expect[] = {
+		FieldRivals::DRAW,
+		FieldRivals::PRINCESS,
+		FieldRivals::SPY,
+		FieldRivals::REVERSE,
+		FieldRivals::DOUBLE,
+		FieldRivals::INVALID,
+		FieldRivals::POWER_2,
+		FieldRivals::WIN,
+		FieldRivals::UNKNOWN
+	};
+
+	for (int i = 0; i < test_num; i++) {
+		DummyCardRivals card_rival;
+		card_rival.SetAbility(ability_txt[i]);
+		FieldRivals::ABILITY_TAG actual;
+		actual = field_->branchAbility(&card_rival);
+		EXPECT_EQ(actual, expect[i]);
+	}
+
 }
 
 
