@@ -87,22 +87,47 @@ TEST_F(UnitTestFieldRivals, branchAbility)
 
 TEST_F(UnitTestFieldRivals, abilityDraw)
 {
-	// making
-	EXPECT_TRUE(false);
-}
+	field_->powers[FieldRivals::P1] = -1;  // set dummy
+	field_->powers[FieldRivals::P2] = -1;  // set dummy
 
+	field_->abilityDraw();
 
-TEST_F(UnitTestFieldRivals, isReveal)
-{
-	// making
-	EXPECT_TRUE(false);
+	int actual_p1 = field_->powers[FieldRivals::P1];
+	int expected_p1 = 0;
+	EXPECT_EQ(actual_p1, expected_p1);
+
+	int actual_p2 = field_->powers[FieldRivals::P2];
+	int expected_p2 = 0;
+	EXPECT_EQ(actual_p2, expected_p2);
 }
 
 
 TEST_F(UnitTestFieldRivals, abilityPrincess)
 {
-	// making
-	EXPECT_TRUE(false);
+	/// ‰¤ŽqˆÈŠO‚Æ‚Ìí“¬
+	const int n_opponent_card_tag = 8;
+	FieldRivals::ABILITY_TAG opponent_card_tag[] = {
+		FieldRivals::DRAW,
+		FieldRivals::PRINCESS,
+		FieldRivals::SPY,
+		FieldRivals::REVERSE,
+		FieldRivals::DOUBLE,
+		FieldRivals::INVALID,
+		FieldRivals::POWER_2,
+		FieldRivals::UNKNOWN
+	};
+
+	field_->wins[FieldRivals::P1] = 0;
+	int expected_wins = 0;
+	for (int i = 0; i < n_opponent_card_tag; i++) {
+		EXPECT_FALSE(field_->abilityPrincess(FieldRivals::P1, opponent_card_tag[i]));
+		EXPECT_EQ(field_->wins[FieldRivals::P1], expected_wins);
+	}
+
+	/// ‰¤Žq‚Æ‚Ìí“¬
+	EXPECT_TRUE(field_->abilityPrincess(FieldRivals::P1, FieldRivals::WIN));
+	expected_wins = 4;
+	EXPECT_EQ(field_->wins[FieldRivals::P1], expected_wins);
 }
 
 
@@ -149,6 +174,13 @@ TEST_F(UnitTestFieldRivals, enchantment)
 
 
 TEST_F(UnitTestFieldRivals, ability)
+{
+	// making
+	EXPECT_TRUE(false);
+}
+
+
+TEST_F(UnitTestFieldRivals, isReveal)
 {
 	// making
 	EXPECT_TRUE(false);
