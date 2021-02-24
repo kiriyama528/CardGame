@@ -133,8 +133,22 @@ TEST_F(UnitTestFieldRivals, abilityPrincess)
 
 TEST_F(UnitTestFieldRivals, abilitySpy)
 {
-	// making
-	EXPECT_TRUE(false);
+	field_->abilitySpy(FieldRivals::P1);
+	EXPECT_FALSE(field_->reveal[FieldRivals::P1]);
+	EXPECT_TRUE(field_->reveal[FieldRivals::P2]);
+
+	field_->reveal[0] = false;
+	field_->reveal[1] = false;
+	field_->abilitySpy(FieldRivals::P2);
+	EXPECT_TRUE(field_->reveal[FieldRivals::P1]);
+	EXPECT_FALSE(field_->reveal[FieldRivals::P2]);
+
+	field_->reveal[0] = false;
+	field_->reveal[1] = false;
+	field_->abilitySpy(FieldRivals::P2);
+	field_->abilitySpy(FieldRivals::P1);
+	EXPECT_FALSE(field_->reveal[FieldRivals::P1]);
+	EXPECT_FALSE(field_->reveal[FieldRivals::P2]);
 }
 
 
