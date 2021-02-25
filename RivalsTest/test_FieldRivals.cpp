@@ -154,8 +154,13 @@ TEST_F(UnitTestFieldRivals, abilitySpy)
 
 TEST_F(UnitTestFieldRivals, abilityReverse)
 {
-	// making
-	EXPECT_TRUE(false);
+	field_->powers[FieldRivals::P1] = 1;
+	field_->powers[FieldRivals::P2] = 2;
+	field_->abilityReverse();
+	int expected = -1;
+	EXPECT_EQ(expected, field_->powers[FieldRivals::P1]);
+	expected = -2;
+	EXPECT_EQ(expected, field_->powers[FieldRivals::P2]);
 }
 
 
