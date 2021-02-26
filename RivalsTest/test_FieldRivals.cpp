@@ -166,15 +166,19 @@ TEST_F(UnitTestFieldRivals, abilityReverse)
 
 TEST_F(UnitTestFieldRivals, abilityDouble)
 {
-	// making
-	EXPECT_TRUE(false);
+	field_->draw_storage[FieldRivals::P1] = 0;
+	field_->abilityDouble(FieldRivals::P1);
+	int expected = 1;
+	EXPECT_EQ(expected, field_->draw_storage[FieldRivals::P1]);
 }
 
 
 TEST_F(UnitTestFieldRivals, abilityPowerUp)
 {
-	// making
-	EXPECT_TRUE(false);
+	field_->power_up[FieldRivals::P1] = 0;
+	int expected = 2;
+	field_->abilityPowerUp(FieldRivals::P1, expected);
+	EXPECT_EQ(expected, field_->power_up[FieldRivals::P1]);
 }
 
 
