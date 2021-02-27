@@ -184,8 +184,10 @@ TEST_F(UnitTestFieldRivals, abilityPowerUp)
 
 TEST_F(UnitTestFieldRivals, abilityWin)
 {
-	// making
-	EXPECT_TRUE(false);
+	field_->power_up[FieldRivals::P1] = 0;
+	field_->abilityWin(FieldRivals::P1);
+	int expected = PRINCE_POWER_UP;
+	EXPECT_EQ(expected, field_->powers[FieldRivals::P1]);
 }
 
 
