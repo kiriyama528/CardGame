@@ -31,6 +31,10 @@ public:
 	void SetAbility(const char *str) {
 		ability_text = str;
 	}
+
+	void SetPower(unsigned int inp_power) {
+		power = inp_power;
+	}
 };
 
 class UnitTestFieldRivals : public ::testing::Test {
@@ -193,8 +197,28 @@ TEST_F(UnitTestFieldRivals, abilityWin)
 
 TEST_F(UnitTestFieldRivals, enchantment)
 {
-	// making
-	EXPECT_TRUE(false);
+	DummyCardRivals card_rival[2];
+	card_rival[0].SetPower(1);
+	card_rival[1].SetPower(2);
+
+	field_->powers[0] = 0;
+	field_->powers[1] = 0;
+	field_->power_up[0] = 1;
+	field_->power_up[1] = 2;
+	field_->reveal[0] = true;
+	field_->reveal[1] = false;
+
+	EXPECT_TRUE(field_->enchantment(&card_rival[0], &card_rival[1]));
+
+	int expected_powers[2] = { 2, 4 };
+	int *actual_powers = field_->powers;
+	EXPECT_EQ(expected_powers[0], actual_powers[0]);
+	EXPECT_EQ(expected_powers[1], actual_powers[1]);
+	EXPECT_EQ(0, field_->power_up[0]);
+	EXPECT_EQ(0, field_->power_up[1]);
+	EXPECT_FALSE(field_->reveal[0]);
+	EXPECT_FALSE(field_->reveal[1]);
+	EXPECT_EQ(0, field_->power_up[1]);
 }
 
 
@@ -207,8 +231,24 @@ TEST_F(UnitTestFieldRivals, ability)
 
 TEST_F(UnitTestFieldRivals, isReveal)
 {
-	// making
-	EXPECT_TRUE(false);
+	const int test_num = 4;
+	bool reveals[4][2] = {
+		{ true, true},
+		{ true, false},
+		{false, true},
+		{false, false}
+	};
+	bool expected[4] = { true, true, true, false };
+	
+	for (int i = 0; i < test_num; i++) {
+		field_->reveal[0] = reveals[i][0];
+		field_->reveal[1] = reveals[i][1];
+		bool actual_aug[2];
+		bool actual_ret = field_->isReveal(actual_aug);
+		EXPECT_EQ(actual_aug[0], reveals[i][0]);
+		EXPECT_EQ(actual_aug[1], reveals[i][1]);
+		EXPECT_EQ(expected[i], actual_ret);
+	}
 }
 
 

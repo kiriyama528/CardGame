@@ -149,10 +149,10 @@ public:
 	// @return ひとつでも見つかれば true. 詳細は引数へ
 	/**
 	 * @brief 次回の勝負でカードを公開するプレイヤーがいるか。いるなら誰か。
-	 * @param reveal_flag カード公開フラグのリスト。trueなら公開する
+	 * @param reveal_flag カード公開フラグのリストを格納して返す。trueなら公開する
 	 *         [0]：PLAYER1
 	 *         [1]：PLAYER2
 	 * @return (true) カード公開処理が必要 / カード公開処理は不必要 (false)
 	 **/
-	bool isReveal(bool reveal_flag[N_PLAYERS]);
+	bool isReveal(bool reveal_flag[N_PLAYERS]) const ;
 };

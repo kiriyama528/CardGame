@@ -114,7 +114,7 @@ FieldRivals::ABILITY_TAG FieldRivals::branchAbility(const CardRivals *c) {
 		"â‘ÎŸ—˜"
 	};
 	
-	unsigned int n_template = sizeof(template_txt) / sizeof(template_txt[0]);
+	int n_template = sizeof(template_txt) / sizeof(template_txt[0]);
 	for (int i = 0; i < n_template; i++) {
 		if (txt == template_txt[i]) {
 			return (ABILITY_TAG)i;
@@ -249,7 +249,7 @@ bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 }
 
 
-bool FieldRivals::isReveal(bool reveal_flag[N_PLAYERS]) {
+bool FieldRivals::isReveal(bool reveal_flag[N_PLAYERS]) const {
 	bool tmp = false;
 	for (int i = 0; i < N_PLAYERS; i++) {
 		reveal_flag[i] = reveal[i];
