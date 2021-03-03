@@ -178,29 +178,30 @@ void FieldRivals::abilityWin(PLAYER_NUMBER p) {
 
 
 bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
-	const CardRivals *cc[N_PLAYERS] = { c1, c2 };
+	const CardRivals *cc[N_PLAYERS] = { c1, c2 };  // TODO : rename
 	//	void (*fpfunc[N_PLAYERS])(CardRivals*); // Žg‚¢‚½‚©‚Á‚½‚ª•s“K
-	ABILITY_TAG abi_tag[N_PLAYERS];
+	ABILITY_TAG ability_tag[N_PLAYERS];
 
+	// TODO : ‚í‚´‚í‚´for•¶‚É‚·‚é‚Ù‚Ç‚Å‚à‚È‚¢
 	for (int i = 0; i < N_PLAYERS; i++) {
-		abi_tag[i] = branchAbility(cc[i]);
+		ability_tag[i] = branchAbility(cc[i]);
 	}
 	
 	// ”\—ÍŽÀs
-	if (abi_tag[P1] == UNKNOWN || abi_tag[P2] == UNKNOWN) {
+	if (ability_tag[P1] == UNKNOWN || ability_tag[P2] == UNKNOWN) {
 		// ERROR
 		return false;
 	}
 
 	/// ‹­§I—¹: 5
-	if (abi_tag[P1] == INVALID || abi_tag[P2] == INVALID) {
+	if (ability_tag[P1] == INVALID || ability_tag[P2] == INVALID) {
 		// ‚¨ŒÝ‚¢‚É”\—Í‚ð”­“®‚¹‚¸‚ÉI—¹
 		return true;
 	}
 
 	/// ’¼Ú‰e‹¿‚ð‹y‚Ú‚³‚È‚¢Œn: 2, 4, 6
 	for (int i = 0; i < N_PLAYERS; i++) {
-		switch (abi_tag[i]) {
+		switch (ability_tag[i]) {
 		case SPY:
 			abilitySpy((PLAYER_NUMBER)i);
 			break;
@@ -217,8 +218,8 @@ bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 
 	/// ‘ŠŽè‚É‚æ‚Á‚ÄŒø‰Ê‚ª•Ï‰»: 1
 	for (int i = 0; i < N_PLAYERS; i++) {
-		if ( abi_tag[i] == PRINCESS) {
-			if (abilityPrincess((PLAYER_NUMBER)i, abi_tag[N_PLAYERS - 1 - i])) {
+		if ( ability_tag[i] == PRINCESS) {
+			if (abilityPrincess((PLAYER_NUMBER)i, ability_tag[N_PLAYERS - 1 - i])) {
 				return true;
 			}
 		}
@@ -226,21 +227,21 @@ bool FieldRivals::ability(const CardRivals *c1, const CardRivals *c2) {
 
 	/// ”½“]: 3
 	for (int i = 0; i < N_PLAYERS; i++) {
-		if (abi_tag[i] == REVERSE) {
+		if (ability_tag[i] == REVERSE) {
 			abilityReverse();
 		}
 	}
 
 	/// Ÿ—˜ 7
 	for (int i = 0; i < N_PLAYERS; i++) {
-		if (abi_tag[i] == WIN) {
+		if (ability_tag[i] == WIN) {
 			abilityWin((PLAYER_NUMBER)i);
 		}
 	}
 
 	/// ÅŒã‚É”­“®: 0
 	for (int i = 0; i < N_PLAYERS; i++) {
-		if (abi_tag[i] == DRAW) {
+		if (ability_tag[i] == DRAW) {
 			abilityDraw();
 		}
 	}

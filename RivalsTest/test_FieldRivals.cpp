@@ -222,13 +222,6 @@ TEST_F(UnitTestFieldRivals, enchantment)
 }
 
 
-TEST_F(UnitTestFieldRivals, ability)
-{
-	// making
-	EXPECT_TRUE(false);
-}
-
-
 TEST_F(UnitTestFieldRivals, isReveal)
 {
 	const int test_num = 4;
@@ -248,6 +241,61 @@ TEST_F(UnitTestFieldRivals, isReveal)
 		EXPECT_EQ(actual_aug[0], reveals[i][0]);
 		EXPECT_EQ(actual_aug[1], reveals[i][1]);
 		EXPECT_EQ(expected[i], actual_ret);
+	}
+}
+
+
+TEST_F(UnitTestFieldRivals, ability)
+{
+	// making
+	const int test_num = 9;
+	const char* ability_txt[] = {
+		"Ÿ‰ñ‚É‚¿‰z‚µ",
+		"‰¤q‚È‚çƒQ[ƒ€‚ÉŸ—˜",
+		"Ÿ‰ñ‚Í‘ŠèŒöŠJ",
+		"‹­ã”½“]",
+		"‚QŸ",
+		"–³Œø‰»",
+		"Ÿ‰ñ‚Í{‚Q",
+		"â‘ÎŸ—˜",
+		"Unknown"
+	};
+
+	enum CARD_IDX{
+		DRAW = 0,
+		PRINCESS,
+		SPY,
+		REVERSE,
+		DOUBLE,
+		INVALID,
+		POWER_2,
+		WIN,
+		UNKNOWN
+	};
+	
+	bool expected_table[test_num][test_num] = {
+		// 0 ,   1   ,   2  ,   3  ,   4  ,   5  ,   6  ,   7  , UNKNOWN
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // DRAW
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // PRINCESS
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // SPY
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // REVERSE
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // DOUBLE
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // INVALID
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // POWER_2
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // WIN
+		{ false, false, false, false, false, false, false, false, false}   // UNKNOWN
+	};
+
+	DummyCardRivals card_rival[test_num];
+	for (int i = 0; i < test_num; i++) {
+		card_rival[i].SetAbility(ability_txt[i]);
+	}
+
+	for (int i = 0; i < test_num; i++) {
+		for (int j = 0; j < test_num; j++) {
+			printf(" i:%d, j:%d\n", i, j);  // for debug
+			EXPECT_EQ(expected_table[i][j], field_->ability(&card_rival[i], &card_rival[j]));
+		}
 	}
 }
 
