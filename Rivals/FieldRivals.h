@@ -71,7 +71,7 @@ public:  // protected。テストのためにアクセス制限をpublcへ変更
 	 * @brief 0：道化の効果、強制引き分け
 	 * @return trueのみ
 	 **/
-	void abilityDraw();
+	virtual void abilityDraw();
 
 	/**
 	 * @brief 1：姫の効果、相手が王子ならゲームに勝利
@@ -79,24 +79,24 @@ public:  // protected。テストのためにアクセス制限をpublcへ変更
 	 * @param you_tag 対戦相手のRカードタグ
 	 * @return true/false 特殊勝利/効果なし
 	 **/
-	bool abilityPrincess(PLAYER_NUMBER p, ABILITY_TAG you_tag);
+	virtual bool abilityPrincess(PLAYER_NUMBER p, ABILITY_TAG you_tag);
 
 	/**
 	 * @brief 2：密偵の効果、次回相手はカードを公開してプレイ
 	 * @param p 自分のPLAYER番号
 	 **/
-	void abilitySpy(PLAYER_NUMBER p);
+	virtual void abilitySpy(PLAYER_NUMBER p);
 
 	/**
 	 * @brief 3：暗殺者の効果、強弱反転
 	 **/
-	void abilityReverse();
+	virtual void abilityReverse();
 
 	/**
 	 * @brief 4：大臣の効果、勝てば2勝利となるように引き分けストックを調整
 	 * @param p 自分のPLAYER番号
 	 **/
-	void abilityDouble(PLAYER_NUMBER p);
+	virtual void abilityDouble(PLAYER_NUMBER p);
 
 	// 5：魔術師の効果は、処理中に解決、関数化できない（メモ）
 
@@ -104,13 +104,13 @@ public:  // protected。テストのためにアクセス制限をpublcへ変更
 	 * @brief 6：将軍の効果、次回の勝負で数字が+2される
 	 * @param p 自分のPLAYER番号
 	 **/
-	void abilityPowerUp(PLAYER_NUMBER p, int up);
+	virtual void abilityPowerUp(PLAYER_NUMBER p, int up);
 
 	/**
 	 * @brief 7：王子の効果、ほぼ勝利できる
 	 * @param p 自分のPLAYER番号
 	 **/
-	void abilityWin(PLAYER_NUMBER p);
+	virtual void abilityWin(PLAYER_NUMBER p);
 
 	/**
 	 * @brief 前のカードの効果を適用した強さを記録

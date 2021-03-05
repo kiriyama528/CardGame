@@ -37,6 +37,46 @@ public:
 	}
 };
 
+
+class DummyFieldRivals : public FieldRivals {
+public:  // protected。テストのためにアクセス制限をpublcへ変更
+	int called_ability_number_ = -1;
+
+	void Reset() {
+		called_ability_number_ = -1;
+	}
+
+	void abilityDraw() {
+		called_ability_number_ = 0;
+	}
+
+	bool abilityPrincess(PLAYER_NUMBER p, ABILITY_TAG you_tag) {
+		called_ability_number_ = 1;
+		return FieldRivals::abilityPrincess(p, you_tag);
+	}
+
+	void abilitySpy(PLAYER_NUMBER p) {
+		called_ability_number_ = 2;
+	}
+
+	void abilityReverse() {
+		called_ability_number_ = 3;
+	}
+
+	void abilityDouble(PLAYER_NUMBER p) {
+		called_ability_number_ = 4;
+	}
+
+	void abilityPowerUp(PLAYER_NUMBER p, int up) {
+		called_ability_number_ = 6;
+	}
+
+	void abilityWin(PLAYER_NUMBER p) {
+		called_ability_number_ = 7;
+	}
+};
+
+
 class UnitTestFieldRivals : public ::testing::Test {
 protected:
 	FieldRivals *field_;
@@ -247,7 +287,6 @@ TEST_F(UnitTestFieldRivals, isReveal)
 
 TEST_F(UnitTestFieldRivals, ability)
 {
-	// making
 	const int test_num = 9;
 	const char* ability_txt[] = {
 		"次回に持ち越し",
@@ -286,7 +325,22 @@ TEST_F(UnitTestFieldRivals, ability)
 		{ false, false, false, false, false, false, false, false, false}   // UNKNOWN
 	};
 
+	////////// making /////////////////
+	bool expected_used_ability[test_num][test_num] = {
+		// 0 ,   1   ,   2  ,   3  ,   4  ,   5  ,   6  ,   7  , UNKNOWN
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // DRAW
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // PRINCESS
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // SPY
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // REVERSE
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // DOUBLE
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // INVALID
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // POWER_2
+		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // WIN
+		{ false, false, false, false, false, false, false, false, false}   // UNKNOWN
+	};
+
 	DummyCardRivals card_rival[test_num];
+	DummyFieldRivals dummy_field;
 	for (int i = 0; i < test_num; i++) {
 		card_rival[i].SetAbility(ability_txt[i]);
 	}
@@ -294,12 +348,15 @@ TEST_F(UnitTestFieldRivals, ability)
 	for (int i = 0; i < test_num; i++) {
 		for (int j = 0; j < test_num; j++) {
 			printf(" i:%d, j:%d\n", i, j);  // for debug
-			EXPECT_EQ(expected_table[i][j], field_->ability(&card_rival[i], &card_rival[j]));
+			dummy_field.Reset();
+			EXPECT_EQ(expected_table[i][j], dummy_field.ability(&card_rival[i], &card_rival[j]));
+			EXPECT_EQ(expected_used_ability[i][j], dummy_field.called_ability_number_);
 		}
 	}
 }
 
 
+// making
 TEST_F(UnitTestFieldRivals, playCards)
 {
 	DummyCardRivals p1_card("p1_card", "p1_ability", 4);
@@ -308,6 +365,9 @@ TEST_F(UnitTestFieldRivals, playCards)
 	unsigned int p2_wins = 0;
 	field_->playCards(&p1_card, &p2_card, p1_wins, p2_wins);
 
-	// making
+
+	// ability能力がfalseでエラー
+	// 能力解決により勝利数が変わってから決着
+	// 普通に勝負
 	EXPECT_TRUE(false);
 }
