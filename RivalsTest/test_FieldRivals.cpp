@@ -40,39 +40,49 @@ public:
 
 class DummyFieldRivals : public FieldRivals {
 public:  // protected。テストのためにアクセス制限をpublcへ変更
-	int called_ability_number_ = -1;
+	int called_ability_number_[N_PLAYERS];
+	int cnt_ = 0;
 
 	void Reset() {
-		called_ability_number_ = -1;
+		called_ability_number_[0] = -1;
+		called_ability_number_[1] = -1;
+		cnt_ = 0;
 	}
 
 	void abilityDraw() {
-		called_ability_number_ = 0;
+		called_ability_number_[cnt_] = 0;
+		cnt_++;
 	}
 
 	bool abilityPrincess(PLAYER_NUMBER p, ABILITY_TAG you_tag) {
-		called_ability_number_ = 1;
+		called_ability_number_[cnt_] = 1;
+		cnt_++;
 		return FieldRivals::abilityPrincess(p, you_tag);
 	}
 
 	void abilitySpy(PLAYER_NUMBER p) {
-		called_ability_number_ = 2;
+		called_ability_number_[cnt_] = 2;
+		cnt_++;
 	}
 
 	void abilityReverse() {
-		called_ability_number_ = 3;
+		called_ability_number_[cnt_] = 3;
+		cnt_++;
 	}
 
 	void abilityDouble(PLAYER_NUMBER p) {
-		called_ability_number_ = 4;
+		called_ability_number_[cnt_] = 4;
+		cnt_++;
 	}
 
 	void abilityPowerUp(PLAYER_NUMBER p, int up) {
-		called_ability_number_ = 6;
+		called_ability_number_[cnt_] = 6;
+		cnt_++;
 	}
 
 	void abilityWin(PLAYER_NUMBER p) {
-		called_ability_number_ = 7;
+		called_ability_number_[cnt_] = 7;
+		cnt_++;
 	}
 };
 
@@ -88,6 +98,23 @@ protected:
 		delete field_;
 	}
 
+	int min(int num[]) {
+		if (num[0] < num[1]) {
+			return num[0];
+		}
+		else {
+			return num[1];
+		}
+	}
+
+	int max(int num[]) {
+		if (num[0] < num[1]) {
+			return num[1];
+		}
+		else {
+			return num[0];
+		}
+	}
 };
 
 
@@ -325,18 +352,17 @@ TEST_F(UnitTestFieldRivals, ability)
 		{ false, false, false, false, false, false, false, false, false}   // UNKNOWN
 	};
 
-	////////// making /////////////////
-	bool expected_used_ability[test_num][test_num] = {
-		// 0 ,   1   ,   2  ,   3  ,   4  ,   5  ,   6  ,   7  , UNKNOWN
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // DRAW
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // PRINCESS
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // SPY
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // REVERSE
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // DOUBLE
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // INVALID
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // POWER_2
-		{     1,     1,     1,     1,     1,     1,     1,     1, false},  // WIN
-		{ false, false, false, false, false, false, false, false, false}   // UNKNOWN
+	int expected_used_ability[test_num][test_num][2] = {
+		//      0,       1,       2,       3,       4,       5,       6,       7, UNKNOWN
+		{ { 0, 0}, { 0, 1}, { 0, 2}, { 0, 3}, { 0, 4}, {-1,-1}, { 0, 6}, { 0, 7}, {-1,-1}},  // DRAW
+		{ { 1, 0}, { 1, 1}, { 1, 2}, { 1, 3}, { 1, 4}, {-1,-1}, { 1, 6}, { 1,-1}, {-1,-1}},  // PRINCESS
+		{ { 2, 0}, { 2, 1}, { 2, 2}, { 2, 3}, { 2, 4}, {-1,-1}, { 2, 6}, { 2, 7}, {-1,-1}},  // SPY
+		{ { 3, 0}, { 3, 1}, { 3, 2}, { 3, 3}, { 3, 4}, {-1,-1}, { 3, 6}, { 3, 7}, {-1,-1}},  // REVERSE
+		{ { 4, 0}, { 4, 1}, { 4, 2}, { 4, 3}, { 4, 4}, {-1,-1}, { 4, 6}, { 4, 7}, {-1,-1}},  // DOUBLE
+		{ {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}},  // INVALID
+		{ { 6, 0}, { 6, 1}, { 6, 2}, { 6, 3}, { 6, 4}, {-1,-1}, { 6, 6}, { 6, 7}, {-1,-1}},  // POWER_2
+		{ { 7, 0}, { 1,-1}, { 7, 2}, { 7, 3}, { 7, 4}, {-1,-1}, { 7, 6}, { 7, 7}, {-1,-1}},  // WIN
+		{ {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}, {-1,-1}}   // UNKNOWN
 	};
 
 	DummyCardRivals card_rival[test_num];
@@ -350,7 +376,9 @@ TEST_F(UnitTestFieldRivals, ability)
 			printf(" i:%d, j:%d\n", i, j);  // for debug
 			dummy_field.Reset();
 			EXPECT_EQ(expected_table[i][j], dummy_field.ability(&card_rival[i], &card_rival[j]));
-			EXPECT_EQ(expected_used_ability[i][j], dummy_field.called_ability_number_);
+			// 発動順を考慮するのが面倒なので小さいほうと、大きいほうという方法で比較
+			EXPECT_EQ(min(expected_used_ability[i][j]), min(dummy_field.called_ability_number_));
+			EXPECT_EQ(max(expected_used_ability[i][j]), max(dummy_field.called_ability_number_));
 		}
 	}
 }
